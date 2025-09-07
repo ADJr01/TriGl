@@ -1,0 +1,3 @@
+[submodule "src/GLX"]
+	path = src/GLX
+	url = git@github.com:ADJr01/GLX.git
