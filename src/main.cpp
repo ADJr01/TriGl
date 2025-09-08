@@ -3,5 +3,6 @@
 int main() {
     GLX glx;
     glx.setWindowTitle("My Window");
+    glx.inf();
     glx.launch();
 }
