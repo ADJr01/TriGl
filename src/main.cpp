@@ -3,6 +3,12 @@
 int main() {
     GLX glx;
     glx.setWindowTitle("My Window");
-    glx.inf();
+
+    glx.onTick([]() {
+        glClear(GL_COLOR_BUFFER_BIT);
+       glClearColor(0.3, 1., 0.7, 1.0);
+    });
+
     glx.launch();
+    glx.inf();
 }
