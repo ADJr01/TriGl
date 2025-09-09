@@ -7,7 +7,7 @@ const std::string fs = R"(D:/Projects/Personal/CG/TriGL/src/shaders/fragment.gls
 unsigned int program;
 int main() {
     GLX glx;;
-
+    glx.buildMode(BUILD_MODE::PROD);
 
     glx.addPostLaunchProcedure([&]() {
         glx.ShaderTool().setFragmentShaderPath(fs);
@@ -18,9 +18,9 @@ int main() {
 
 
 
-    glx.onTick([]() {
+    glx.onTick([&]() {
         glClear(GL_COLOR_BUFFER_BIT);
-        //glUseProgram( glx.ShaderTool().getProgram());
+        glUseProgram( glx.ShaderTool().getProgram());
        glClearColor(0.3, 1., 0.7, 1.0);
     });
 
