@@ -39,7 +39,9 @@ file(GLOB_RECURSE SOURCE_FILES CONFIGURE_DEPENDS
         src/*.h
 )
 
-add_executable(TriGL ${SOURCE_FILES})
+add_executable(TriGL ${SOURCE_FILES}
+        src/GLX/lib/prefefs.h
+        src/GLX/lib/Numeric.h)
 
 # --- Link libraries ---
 target_link_libraries(TriGL PRIVATE glfw libglew_static OpenGL::GL)
