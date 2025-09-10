@@ -47,4 +47,5 @@ int main() {
     });
 
     glx.launch();
+    glx.ShaderTool().deleteProgram();
 }
