@@ -11,9 +11,10 @@ int main() {
     glx.buildMode(BUILD_MODE::DEV);
     //creating vertices
     float vertecies[] = {
-        -0.5f, -0.5f, 0.0f,
-        0.5f, -0.5f, 0.0f,
-        0.0f, 0.5f, 0.0f
+             //? Vertex         //?COLOR
+        -0.5f, -0.5f, 0.0f,  0.0f,1.0f,0.0f,
+        0.5f, -0.5f, 0.0f,  0.0f,0.0f,1.0f,
+        0.0f, 0.5f, 0.0f,  1.0f,0.0f,0.0f,
     };
     glx.ShaderTool().setFragmentShaderPath(fs);
     glx.ShaderTool().setVertexShaderPath(vs);
@@ -32,8 +33,6 @@ int main() {
         glx.ShaderTool().buildProgram();
 
     });
-
-
 
 
     glx.onTick([&]() {
