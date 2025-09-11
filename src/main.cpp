@@ -51,10 +51,7 @@ int main() {
         glUseProgram( glx.ShaderTool().getProgram());
         if (isMovingRight) {
             moveOffset += moveSpeedPerFrame;
-            if (moveOffset >= MaxMoveRight) {
-                moveOffset = MaxMoveRight; // clamp
-                isMovingRight = false;
-            }
+             (moveOffset >= MaxMoveRight) ?( isMovingRight = false):isMovingRight;
         } else {
             moveOffset -= moveSpeedPerFrame;
             if (moveOffset <= MaxMoveLeft) {
