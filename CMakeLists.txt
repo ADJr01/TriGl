@@ -4,11 +4,6 @@ project(TriGL)
 set(CMAKE_CXX_STANDARD 20)
 set(CMAKE_CXX_STANDARD_REQUIRED ON)
 
-# --- Handle MinGW/MSYS2 on Windows ---
-if (WIN32 AND MSYS)
-    set(CMAKE_GENERATOR "MinGW Makefiles" CACHE INTERNAL "" FORCE)
-endif()
-
 include(FetchContent)
 
 # --- GLFW ---
@@ -22,7 +17,7 @@ set(GLFW_BUILD_TESTS OFF CACHE BOOL "" FORCE)
 set(GLFW_BUILD_EXAMPLES OFF CACHE BOOL "" FORCE)
 FetchContent_MakeAvailable(glfw)
 
-# --- GLEW (use cmake-ready repo) ---
+# --- GLEW (Perlmint cmake fork) ---
 FetchContent_Declare(
         glew
         GIT_REPOSITORY https://github.com/Perlmint/glew-cmake.git
@@ -33,21 +28,26 @@ FetchContent_MakeAvailable(glew)
 # --- OpenGL ---
 find_package(OpenGL REQUIRED)
 
-# --- Source files ---
+# --- Sources ---
 file(GLOB_RECURSE SOURCE_FILES CONFIGURE_DEPENDS
         src/*.cpp
         src/*.h
 )
 
-add_executable(TriGL ${SOURCE_FILES}
+add_executable(TriGL
+        ${SOURCE_FILES}
         src/GLX/lib/prefefs.h
-        src/GLX/lib/Numeric.h)
+        src/GLX/lib/Numeric.h
+)
 
-# --- Link libraries ---
-target_link_libraries(TriGL PRIVATE glfw libglew_static OpenGL::GL)
+# --- Link everything ---
+target_link_libraries(TriGL PRIVATE
+        glfw
+        libglew_static   # provided by glew-cmake
+        OpenGL::GL
+)
 
-# --- Include directories ---
+# No need to add glew include manually — target brings them
 target_include_directories(TriGL PRIVATE
-        ${OPENGL_INCLUDE_DIR}
-        ${glew_SOURCE_DIR}/include
+        ${OPENGL_INCLUDE_DIR}  # optional, sometimes not needed
 )

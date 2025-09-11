@@ -1,6 +1,5 @@
 #include<iostream>
 #include <memory>
-
 #include "./GLX/Glx.h"
 const std::string vs = R"(D:/Projects/Personal/CG/TriGL/src/shaders/vertex.glsl)";
 const std::string fs = R"(D:/Projects/Personal/CG/TriGL/src/shaders/fragment.glsl)";
@@ -8,13 +7,14 @@ unsigned int program;
 uint VAO;
 std::array<uint,2> VBOs;
 constexpr uint VERTEX_TO_DRAW_COUNT = 6;
+float uniformMoveX,moveSpeedPerFrame=0.0008,MaxMoveRight=0.5,MaxMoveLeft=-0.5;
+bool directioRight=true;
 int main() {
     GLX glx;;
     glx.buildMode(BUILD_MODE::DEV);
-
     //creating vertices
     std::array<float,18> positions = {
-             //? POS         //?COLOR
+             //? POS
         -0.3f, -0.3f, 0.0f,//q3
         -0.3f, 0.3f, 0.0f, //q2
         0.3f, 0.3f, 0.0f, //q1
@@ -23,11 +23,10 @@ int main() {
         -0.3f, -0.3f, 0.0f,//q3
     };
     std::array<int,6> index_list = {
-        2,0,1,1,0,2
+        0,2,3,2,0,1
     };
     glx.ShaderTool().setFragmentShaderPath(fs);
     glx.ShaderTool().setVertexShaderPath(vs);
-
 
     glx.addPostLaunchProcedure([&]() {
         glGenVertexArrays(1,&VAO);
@@ -38,18 +37,14 @@ int main() {
         glBufferData(GL_ARRAY_BUFFER,positions.size()*sizeof(float),positions.data(),GL_STATIC_DRAW);
         glVertexAttribPointer(0,3,GL_FLOAT,GL_FALSE,3*sizeof(float),(void*)0);
         glEnableVertexAttribArray(0);
-
         //?Color
         glBindBuffer(GL_ARRAY_BUFFER,VBOs[1]);
         glBufferData(GL_ARRAY_BUFFER,index_list.size()*sizeof(float),index_list.data(),GL_STATIC_DRAW);
         glVertexAttribIPointer(1,1,GL_INT,sizeof(float),(void*)0);
         glEnableVertexAttribArray(1);
-
-
         glx.ShaderTool().buildProgram();
-
+        uniformMoveX = glGetUniformLocation(glx.ShaderTool().getProgram(),"moveX");
     });
-
 
     glx.onTick([&]() {
         glClear(GL_COLOR_BUFFER_BIT);
