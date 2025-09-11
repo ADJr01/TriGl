@@ -7,18 +7,23 @@ const std::string fs = R"(D:/Projects/Personal/CG/TriGL/src/shaders/fragment.gls
 unsigned int program;
 uint VAO;
 std::array<uint,2> VBOs;
+constexpr uint VERTEX_TO_DRAW_COUNT = 6;
 int main() {
     GLX glx;;
     glx.buildMode(BUILD_MODE::DEV);
+
     //creating vertices
-    std::array<float,9> positions = {
+    std::array<float,18> positions = {
              //? POS         //?COLOR
-        -0.5f, -0.5f, 0.0f,
-        0.5f, -0.5f, 0.0f,
-        0.0f, 0.5f, 0.0f,
+        -0.3f, -0.3f, 0.0f,//q3
+        -0.3f, 0.3f, 0.0f, //q2
+        0.3f, 0.3f, 0.0f, //q1
+        0.3f, 0.3f, 0.0f, //q1
+        0.3f, -0.3f, 0.0f, //q4
+        -0.3f, -0.3f, 0.0f,//q3
     };
-    std::array<int,3> index_list = {
-        1,0,2,
+    std::array<int,6> index_list = {
+        2,0,1,1,0,2
     };
     glx.ShaderTool().setFragmentShaderPath(fs);
     glx.ShaderTool().setVertexShaderPath(vs);
@@ -50,7 +55,7 @@ int main() {
         glClear(GL_COLOR_BUFFER_BIT);
         glUseProgram( glx.ShaderTool().getProgram());
         glBindVertexArray(VAO);
-        glDrawArrays(GL_TRIANGLES,0,3);
+        glDrawArrays(GL_TRIANGLES,0,VERTEX_TO_DRAW_COUNT);
         glClearColor(0.0, 0.0, 0.0, 1.0);
         glBindVertexArray(0);
         glUseProgram(0);
