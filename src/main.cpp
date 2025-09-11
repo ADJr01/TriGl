@@ -5,10 +5,11 @@ const std::string vs = R"(D:/Projects/Personal/CG/TriGL/src/shaders/vertex.glsl)
 const std::string fs = R"(D:/Projects/Personal/CG/TriGL/src/shaders/fragment.glsl)";
 unsigned int program;
 uint VAO;
+int uniformMoveX;
 std::array<uint,2> VBOs;
 constexpr uint VERTEX_TO_DRAW_COUNT = 6;
-float uniformMoveX,moveSpeedPerFrame=0.0008,MaxMoveRight=0.5,MaxMoveLeft=-0.5;
-bool directioRight=true;
+float moveOffset=0.3,moveSpeedPerFrame=0.003,MaxMoveRight=0.5,MaxMoveLeft=-0.5;
+bool isMovingRight=true;
 int main() {
     GLX glx;;
     glx.buildMode(BUILD_MODE::DEV);
@@ -47,8 +48,22 @@ int main() {
     });
 
     glx.onTick([&]() {
-        glClear(GL_COLOR_BUFFER_BIT);
         glUseProgram( glx.ShaderTool().getProgram());
+        if (isMovingRight) {
+            moveOffset += moveSpeedPerFrame;
+            if (moveOffset >= MaxMoveRight) {
+                moveOffset = MaxMoveRight; // clamp
+                isMovingRight = false;
+            }
+        } else {
+            moveOffset -= moveSpeedPerFrame;
+            if (moveOffset <= MaxMoveLeft) {
+                moveOffset = MaxMoveLeft; // clamp
+                isMovingRight = true;
+            }
+        }
+        glUniform1f(uniformMoveX,moveOffset);
+        glClear(GL_COLOR_BUFFER_BIT);
         glBindVertexArray(VAO);
         glDrawArrays(GL_TRIANGLES,0,VERTEX_TO_DRAW_COUNT);
         glClearColor(0.0, 0.0, 0.0, 1.0);
