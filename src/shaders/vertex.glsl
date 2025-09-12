@@ -2,8 +2,9 @@
 layout (location = 0) in vec3 vertPos;
 layout (location = 1) in int vertIndex;
 out vec3 fragColor;
-uniform float moveX;
-
+out float time;
+out vec2 positionData;
+uniform float uniformModel, iTime;
 const vec3 Color[4] = vec3[4](
         vec3(0.11, 0.94, 0.56),
         vec3(0.02, 0.87, 0.36),
@@ -12,9 +13,11 @@ const vec3 Color[4] = vec3[4](
 );
 
 void main(){
-    float x = vertPos.x + moveX;
+    float x = vertPos.x;
     float y = vertPos.y;
     float z = vertPos.z;
-    gl_Position = vec4(x,y,z,1.0);
     fragColor = Color[vertIndex];
+    time=iTime;
+    positionData = vec2(x,y);
+    gl_Position = vec4(x,y,z,1.0);
 }

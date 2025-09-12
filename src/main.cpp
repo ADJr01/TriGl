@@ -1,17 +1,22 @@
 #include<iostream>
 #include <memory>
 #include "./GLX/Glx.h"
+#include <glm/glm.hpp>
+#include <glm/gtc/matrix_transform.hpp>
+#include <glm/gtc/type_ptr.hpp>
+
 const std::string vs = R"(D:/Projects/Personal/CG/TriGL/src/shaders/vertex.glsl)";
 const std::string fs = R"(D:/Projects/Personal/CG/TriGL/src/shaders/fragment.glsl)";
 unsigned int program;
-uint VAO;
-int uniformMoveX;
-std::array<uint,2> VBOs;
-constexpr uint VERTEX_TO_DRAW_COUNT = 6;
+glx_type::uint VAO;
+int uniformModel,iTime;
+std::array<glx_type::uint,2> VBOs;
+constexpr glx_type::uint VERTEX_TO_DRAW_COUNT = 6;
 float moveOffset=0.3,moveSpeedPerFrame=0.003,MaxMoveRight=0.5,MaxMoveLeft=-0.5;
 bool isMovingRight=true;
 int main() {
-    GLX glx;;
+    GLX glx;
+    glx.setWindowTitle("TriCube");
     glx.buildMode(BUILD_MODE::DEV);
     //creating vertices
     std::array<float,18> positions = {
@@ -44,7 +49,8 @@ int main() {
         glVertexAttribIPointer(1,1,GL_INT,sizeof(float),(void*)0);
         glEnableVertexAttribArray(1);
         glx.ShaderTool().buildProgram();
-        uniformMoveX = glGetUniformLocation(glx.ShaderTool().getProgram(),"moveX");
+        uniformModel = glGetUniformLocation(glx.ShaderTool().getProgram(),"uniformModel");
+        iTime = glGetUniformLocation(glx.ShaderTool().getProgram(),"iTime");
     });
 
     glx.onTick([&]() {
@@ -60,6 +66,7 @@ int main() {
             }
         }
         glUniform1f(uniformMoveX,moveOffset);
+        glUniform1f(iTime,static_cast<float>(glfwGetTime()));
         glClear(GL_COLOR_BUFFER_BIT);
         glBindVertexArray(VAO);
         glDrawArrays(GL_TRIANGLES,0,VERTEX_TO_DRAW_COUNT);

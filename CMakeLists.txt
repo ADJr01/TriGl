@@ -25,6 +25,14 @@ FetchContent_Declare(
 )
 FetchContent_MakeAvailable(glew)
 
+# --- GLM (Header-only) ---
+FetchContent_Declare(
+        glm
+        GIT_REPOSITORY https://github.com/g-truc/glm.git
+        GIT_TAG master
+)
+FetchContent_MakeAvailable(glm)
+
 # --- OpenGL ---
 find_package(OpenGL REQUIRED)
 
@@ -45,6 +53,7 @@ target_link_libraries(TriGL PRIVATE
         glfw
         libglew_static   # provided by glew-cmake
         OpenGL::GL
+        glm              # glm target comes from FetchContent
 )
 
 # No need to add glew include manually — target brings them
