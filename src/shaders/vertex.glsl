@@ -13,7 +13,7 @@ const vec3 Color[4] = vec3[4](
 
 void main(){
     float x = vertPos.x + moveX;
-    float y = vertPos.y  + sinh(moveX);
+    float y = vertPos.y;
     float z = vertPos.z;
     gl_Position = vec4(x,y,z,1.0);
     fragColor = Color[vertIndex];
