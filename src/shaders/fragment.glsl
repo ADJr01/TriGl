@@ -2,19 +2,9 @@
 
 in  vec3 fragColor;
 in float time;
-in vec2 positionData;
+in vec4 positionData;
 out vec4 pixelColor;
 void main(){
-    vec2 R = positionData.xy;
-    vec2 uv = (2. * positionData - R) / R.y;
-    float iTime = time;
-    float r = fragColor.r;
-    float g = fragColor.g;
-    float b = fragColor.b;
-    float d = length(uv);
-    //float c = smoothstep(sin(uv.x*iTime),cos(iTime*uv.y),d);
-
-    //pixelColor = vec4(r,g,b,1.0);
-    pixelColor=vec4(d*fragColor,1.0);
+    pixelColor=vec4(fragColor,1.0)/positionData ;
 }
 

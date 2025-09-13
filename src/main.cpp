@@ -65,7 +65,10 @@ int main() {
                 isMovingRight = true;
             }
         }
-        glUniform1f(uniformModel,moveOffset);
+
+        auto Identity = glm::mat4(1.0); //  Identity Matrix
+        Identity = glm::translate(Identity,glm::vec3(moveOffset,0.0f,0.0f));
+        glUniformMatrix4fv(uniformModel,1,GL_FALSE,glm::value_ptr(Identity));
         glUniform1f(iTime,static_cast<float>(glfwGetTime()));
         glClear(GL_COLOR_BUFFER_BIT);
         glBindVertexArray(VAO);
