@@ -65,7 +65,7 @@ int main() {
                 isMovingRight = true;
             }
         }
-        glUniform1f(uniformMoveX,moveOffset);
+        glUniform1f(uniformModel,moveOffset);
         glUniform1f(iTime,static_cast<float>(glfwGetTime()));
         glClear(GL_COLOR_BUFFER_BIT);
         glBindVertexArray(VAO);

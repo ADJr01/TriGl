@@ -13,9 +13,8 @@ void main(){
     float b = fragColor.b;
     float d = length(uv);
     //float c = smoothstep(sin(uv.x*iTime),cos(iTime*uv.y),d);
-    r*=d;
-    g*=d;
-    b*=d;
+
     //pixelColor = vec4(r,g,b,1.0);
-    pixelColor=vec4(d*0.25);
+    pixelColor=vec4(d*fragColor,1.0);
 }
+
