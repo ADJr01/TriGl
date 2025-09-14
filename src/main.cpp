@@ -73,7 +73,7 @@ int main() {
         glClear(GL_COLOR_BUFFER_BIT);
         glBindVertexArray(VAO);
         glDrawArrays(GL_TRIANGLES,0,VERTEX_TO_DRAW_COUNT);
-        glClearColor(0.0, 0.0, 0.0, 1.0);
+        glClearColor(1.0, 1.0, 1.0, 1.0);
         glBindVertexArray(0);
         glUseProgram(0);
     });

@@ -4,6 +4,7 @@
     <mapping directory="" vcs="Git" />
     <mapping directory="$PROJECT_DIR$/cmake-build-debug/_deps/glew-src" vcs="Git" />
     <mapping directory="$PROJECT_DIR$/cmake-build-debug/_deps/glfw-src" vcs="Git" />
+    <mapping directory="$PROJECT_DIR$/cmake-build-debug/_deps/glm-src" vcs="Git" />
     <mapping directory="$PROJECT_DIR$/src/GLX" vcs="Git" />
   </component>
 </project>

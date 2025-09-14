@@ -20,7 +20,7 @@ void main(){
     float y = vertPos.y;
     float z = vertPos.z;
     fragColor = Color[vertIndex];
-    time=sin(iTime);
+    time=iTime;
     vec4 finalPos = uniformModel * vec4(x,y,z,1.0);
     positionData = finalPos;
     gl_Position = finalPos;
