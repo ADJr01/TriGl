@@ -14,6 +14,18 @@ std::array<glx_type::uint,2> VBOs;
 constexpr glx_type::uint VERTEX_TO_DRAW_COUNT = 6;
 float moveOffset=0.3,moveSpeedPerFrame=0.003,MaxMoveRight=0.5,MaxMoveLeft=-0.5;
 bool isMovingRight=true;
+void movementOffset() {
+    if (isMovingRight) {
+        moveOffset += moveSpeedPerFrame;
+        (moveOffset >= MaxMoveRight) ?( isMovingRight = false):isMovingRight;
+    } else {
+        moveOffset -= moveSpeedPerFrame;
+        if (moveOffset <= MaxMoveLeft) {
+            moveOffset = MaxMoveLeft; // clamp
+            isMovingRight = true;
+        }
+    }
+}
 int main() {
     GLX glx;
     glx.setWindowTitle("TriCube");
@@ -54,16 +66,7 @@ int main() {
     });
 
     glx.onTick([&]() {
-        if (isMovingRight) {
-            moveOffset += moveSpeedPerFrame;
-             (moveOffset >= MaxMoveRight) ?( isMovingRight = false):isMovingRight;
-        } else {
-            moveOffset -= moveSpeedPerFrame;
-            if (moveOffset <= MaxMoveLeft) {
-                moveOffset = MaxMoveLeft; // clamp
-                isMovingRight = true;
-            }
-        }
+        movementOffset();
         glUseProgram( glx.ShaderTool().getProgram());//selecting out shader program
         glBindVertexArray(VAO); //selecting our current vertex array object
         //? handling Uniform
@@ -73,7 +76,7 @@ int main() {
         glUniform1f(iTime,static_cast<float>(glfwGetTime()));
         //? handling Rest of the Drawing functions
         glClear(GL_COLOR_BUFFER_BIT);
-        glDrawArrays( GL_TRIANGLES,0,VERTEX_TO_DRAW_COUNT);
+        glDrawArrays( GL_LINE_STRIP,0,VERTEX_TO_DRAW_COUNT);
         glClearColor(1.0, 1.0, 1.0, 1.0);
         glBindVertexArray(0);
         glUseProgram(0);
