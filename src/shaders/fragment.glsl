@@ -12,16 +12,9 @@ void main(){
     float d = length(vec2(positionData.x,positionData.y));
     float c = smoothstep(0.5,.085,d);
     float blendAmount = smoothstep(PI/d,d,sinh(d*time));
-    vec3 ColorG =  vec3(
-    0.0,
-    smoothstep(0.0,0.8,cos(d*c))/d,
-    0.0
-    );
-    vec3 ColorB =  vec3(
-    vec2(0.),
-    smoothstep(0.0,0.8,cos(d*c))/d
-    );
+    vec3 ColorG =  vec3(0.0, smoothstep(0.0,0.8,cos(d*c))/d, 0.0);
+    vec3 ColorB =  vec3(vec2(0.), smoothstep(0.0,0.8,cos(d*c))/d);
     vec3 finalColor = mix(ColorB-ColorG,ColorB+ColorG,sin(time * 1.5) * 0.2 + 0.8); // random experimnet with color and blend effect
-    pixelColor =   vec4(finalColor,1.);
+    pixelColor =   vec4(finalColor*fragColor,1.);
 }
 

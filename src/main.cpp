@@ -29,7 +29,7 @@ int main() {
         -0.3f, -0.3f, 0.0f,//q3
     };
     std::array<int,6> index_list = {
-        0,2,3,2,0,1
+        0,2,3,1,0,1
     };
     glx.ShaderTool().setFragmentShaderPath(fs);
     glx.ShaderTool().setVertexShaderPath(vs);
