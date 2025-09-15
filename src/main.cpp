@@ -54,7 +54,6 @@ int main() {
     });
 
     glx.onTick([&]() {
-        glUseProgram( glx.ShaderTool().getProgram());
         if (isMovingRight) {
             moveOffset += moveSpeedPerFrame;
              (moveOffset >= MaxMoveRight) ?( isMovingRight = false):isMovingRight;
@@ -65,14 +64,16 @@ int main() {
                 isMovingRight = true;
             }
         }
-
+        glUseProgram( glx.ShaderTool().getProgram());//selecting out shader program
+        glBindVertexArray(VAO); //selecting our current vertex array object
+        //? handling Uniform
         auto Identity = glm::mat4(1.0); //  Identity Matrix
         Identity = glm::translate(Identity,glm::vec3(moveOffset,0.0f,0.0f));
         glUniformMatrix4fv(uniformModel,1,GL_FALSE,glm::value_ptr(Identity));
         glUniform1f(iTime,static_cast<float>(glfwGetTime()));
+        //? handling Rest of the Drawing functions
         glClear(GL_COLOR_BUFFER_BIT);
-        glBindVertexArray(VAO);
-        glDrawArrays(GL_TRIANGLES,0,VERTEX_TO_DRAW_COUNT);
+        glDrawArrays( GL_TRIANGLES,0,VERTEX_TO_DRAW_COUNT);
         glClearColor(1.0, 1.0, 1.0, 1.0);
         glBindVertexArray(0);
         glUseProgram(0);
