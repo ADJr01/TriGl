@@ -8,7 +8,7 @@ out vec4 pixelColor;
 
 void main(){
     float d = sqrt((pow(positionData.x,length(positionData.x)) * pow(positionData.y,length(positionData.y))));
-    float blendAmount = smoothstep(0.5,d,sinh(d*time));
+    float blendAmount = smoothstep(PI/d,d,sinh(d*time));
     pixelColor=vec4(fragColor * blendAmount ,1.0) ;
 }
 
