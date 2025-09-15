@@ -9,10 +9,10 @@ uniform mat4 uniformModel;
 uniform float iTime;
 
 const vec3 Color[4] = vec3[4](
-        vec3(0.81, 0.44, 0.66),
+        vec3(0.81, 0.74, 0.66),
         vec3(0.62, 0.87, 0.36),
         vec3(1., 0.51, 0.43),
-        vec3(0.05, 0.60, 0.41)
+        vec3(0.7, 0.80, 0.41)
 );
 
 void main(){
