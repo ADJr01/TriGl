@@ -76,7 +76,7 @@ int main() {
         glUniform1f(iTime,static_cast<float>(glfwGetTime()));
         //? handling Rest of the Drawing functions
         glClear(GL_COLOR_BUFFER_BIT);
-        glDrawArrays( GL_LINE_STRIP,0,VERTEX_TO_DRAW_COUNT);
+        glDrawArrays( GL_TRIANGLES,0,VERTEX_TO_DRAW_COUNT);
         glClearColor(1.0, 1.0, 1.0, 1.0);
         glBindVertexArray(0);
         glUseProgram(0);
