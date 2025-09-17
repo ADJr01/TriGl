@@ -9,12 +9,9 @@ out vec4 pixelColor;
 void main(){
     float x = positionData.x;
     float y = positionData.y;
-    float d = smoothstep(positionData.y/positionData.x,positionData.x/positionData.y,length(vec2(positionData.x,positionData.y)));
-    float c = smoothstep(0.5,.09,d);
-    float blendAmount = smoothstep(PI/d,d,sinh(d*time));
-    vec3 ColorG =  vec3(0.0, smoothstep(0.0,0.8,cos(d*c))/d, blendAmount);
-    vec3 ColorB =  vec3(vec2(blendAmount), smoothstep(0.0,0.8,cos(d*c))/d);
-    vec3 finalColor = mix(ColorB+fragColor,ColorB-ColorG,atan(time * 1.5) * atan(x * y)*fragColor); // random experimnet with color and blend effect
-    pixelColor =   vec4(finalColor,1.);
+    float len = length(vec2(positionData.x,positionData.y));
+    float d = (smoothstep(positionData.y,positionData.x,len)* PI);
+    float effect  =  cos(pow(len+time,2.0)*d);
+    pixelColor =effect* vec4(fragColor,1.0);
 }
 
