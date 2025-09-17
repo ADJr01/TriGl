@@ -9,7 +9,7 @@ out vec4 pixelColor;
 void main(){
     float x = positionData.x;
     float y = positionData.y;
-    float d = smoothstep(positionData.y,positionData.x,length(vec2(positionData.x,positionData.y)));
+    float d = smoothstep(positionData.y/positionData.x,positionData.x/positionData.y,length(vec2(positionData.x,positionData.y)));
     float c = smoothstep(0.5,.09,d);
     float blendAmount = smoothstep(PI/d,d,sinh(d*time));
     vec3 ColorG =  vec3(0.0, smoothstep(0.0,0.8,cos(d*c))/d, blendAmount);
