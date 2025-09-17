@@ -7,11 +7,11 @@ out vec4 pixelColor;
 
 
 void main(){
-    float x = positionData.x;
-    float y = positionData.y;
+    float x = sqrt(positionData.x);
+    float y = pow(positionData.y,3.0);
     float len = length(vec2(positionData.x,positionData.y));
-    float d = (smoothstep(positionData.y,positionData.x,len)* PI);
-    float effect  =  cos(pow(len+time,2.0)*d);
+    float d = (smoothstep(y-0.01,x,len)* 0.314);
+    float effect  =  sin(pow(len+time,2.0)*PI) / d;
     pixelColor =effect* vec4(fragColor,1.0);
 }
 
