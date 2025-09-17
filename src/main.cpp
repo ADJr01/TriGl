@@ -27,6 +27,7 @@ void movementOffset() {
     }
 }
 int main() {
+
     GLX glx;
     glx.setWindowTitle("TriCube");
     glx.buildMode(BUILD_MODE::DEV);
