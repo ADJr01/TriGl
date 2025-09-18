@@ -44,8 +44,6 @@ file(GLOB_RECURSE SOURCE_FILES CONFIGURE_DEPENDS
 
 add_executable(TriGL
         ${SOURCE_FILES}
-        src/GLX/lib/prefefs.h
-        src/GLX/lib/Numeric.h
 )
 
 # --- Link everything ---

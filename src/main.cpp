@@ -50,6 +50,7 @@ int main() {
     glx.addPostLaunchProcedure([&]() {
         glGenVertexArrays(1,&VAO);
         glBindVertexArray(VAO);
+        //generating 2 vertex buffer
         glGenBuffers(VBOs.size(),VBOs.data());
         //?position
         glBindBuffer(GL_ARRAY_BUFFER,VBOs[0]);
