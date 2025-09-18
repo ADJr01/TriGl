@@ -8,7 +8,7 @@ out vec4 pixelColor;
 
 void main(){
     float x = sqrt(positionData.x);
-    float y = pow(positionData.y,3.0);
+    float y = pow(positionData.y,2.);
     float len = length(vec2(positionData.x,positionData.y));
     float d = (smoothstep(y-0.01,x,len)* 0.314);
     float effect  =  sin(pow(len+time,2.0)*PI) / d;

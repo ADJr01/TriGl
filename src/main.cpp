@@ -50,7 +50,7 @@ int main() {
     glx.addPostLaunchProcedure([&]() {
         glGenVertexArrays(1,&VAO);
         glBindVertexArray(VAO);
-        glGenBuffers(2,VBOs.data());
+        glGenBuffers(VBOs.size(),VBOs.data());
         //?position
         glBindBuffer(GL_ARRAY_BUFFER,VBOs[0]);
         glBufferData(GL_ARRAY_BUFFER,positions.size()*sizeof(float),positions.data(),GL_STATIC_DRAW);
@@ -67,7 +67,7 @@ int main() {
     });
 
     glx.onTick([&]() {
-        movementOffset();
+        movementOffset(); // moving out triangle
         glUseProgram( glx.ShaderTool().getProgram());//selecting out shader program
         glBindVertexArray(VAO); //selecting our current vertex array object
         //? handling Uniform
