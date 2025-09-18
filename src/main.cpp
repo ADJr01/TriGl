@@ -54,13 +54,17 @@ int main() {
         glGenBuffers(2,VBOs.data());
         //?position
         glBindBuffer(GL_ARRAY_BUFFER,VBOs[0]);
+
         glBufferData(GL_ARRAY_BUFFER,positions.size()*sizeof(float),positions.data(),GL_STATIC_DRAW);
+
         glVertexAttribPointer(0,3,GL_FLOAT,GL_FALSE,3*sizeof(float),(void*)0);
+
         glEnableVertexAttribArray(0);
+
         //?Color
         glBindBuffer(GL_ARRAY_BUFFER,VBOs[1]);
         glBufferData(GL_ARRAY_BUFFER,index_list.size()*sizeof(float),index_list.data(),GL_STATIC_DRAW);
-        glVertexAttribIPointer(1,1,GL_INT,sizeof(float),(void*)0);
+        glVertexAttribIPointer(1,1,GL_INT,sizeof(int),(void*)0);
         glEnableVertexAttribArray(1);
         glx.ShaderTool().buildProgram();
         uniformModel = glGetUniformLocation(glx.ShaderTool().getProgram(),"uniformModel");
