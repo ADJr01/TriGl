@@ -40,7 +40,7 @@ public:
         if (this->VBO_BIND_COUNTER >= MAX_VBO_SIZE) throw std::runtime_error("Too many VBO buffer objects To Record");
         glBindBuffer(GL_ARRAY_BUFFER,this->VBOs[this->VBO_BIND_COUNTER]);
         glBufferData(GL_ARRAY_BUFFER,N*sizeof(float),vertices.data(),GL_STATIC_DRAW);
-        glVertexAttribIPointer(this->VBO_BIND_COUNTER,per_vertex_size,GL_FLOAT,N*sizeof(float),static_cast<void *>(0));
+        glVertexAttribIPointer(this->VBO_BIND_COUNTER,per_vertex_size,GL_FLOAT,N*sizeof(int),static_cast<void *>(0));
         glEnableVertexAttribArray(this->VBO_BIND_COUNTER);
         this->VBO_BIND_COUNTER+=1;
     }
