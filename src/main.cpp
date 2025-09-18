@@ -51,7 +51,7 @@ int main() {
         glGenVertexArrays(1,&VAO);
         glBindVertexArray(VAO);
         //generating 2 vertex buffer
-        glGenBuffers(VBOs.size(),VBOs.data());
+        glGenBuffers(2,VBOs.data());
         //?position
         glBindBuffer(GL_ARRAY_BUFFER,VBOs[0]);
         glBufferData(GL_ARRAY_BUFFER,positions.size()*sizeof(float),positions.data(),GL_STATIC_DRAW);
