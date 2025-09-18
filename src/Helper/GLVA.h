@@ -27,7 +27,7 @@ public:
     }
 
     template <std::size_t N>
-    void bindVertexInfo_F(std::array<float,N>& vertices,glx_type::i16 per_vertex_size) {
+    void bindVertexInfo_F(std::array<float,N>& vertices,int per_vertex_size) {
         if (this->VBO_BIND_COUNTER >= MAX_VBO_SIZE) throw std::runtime_error("Too many VBO buffer objects To Record");
         glBindBuffer(GL_ARRAY_BUFFER,this->VBOs[this->VBO_BIND_COUNTER]);
         glBufferData(GL_ARRAY_BUFFER,N*sizeof(float),vertices.data(),GL_STATIC_DRAW);
@@ -36,7 +36,7 @@ public:
         this->VBO_BIND_COUNTER+=1;
     }
     template <std::size_t N>
-    void bindVertexInfo_I(std::array<float,N>& vertices,glx_type::i16 per_vertex_size) {
+    void bindVertexInfo_I(std::array<int,N>& vertices,int per_vertex_size) {
         if (this->VBO_BIND_COUNTER >= MAX_VBO_SIZE) throw std::runtime_error("Too many VBO buffer objects To Record");
         glBindBuffer(GL_ARRAY_BUFFER,this->VBOs[this->VBO_BIND_COUNTER]);
         glBufferData(GL_ARRAY_BUFFER,N*sizeof(float),vertices.data(),GL_STATIC_DRAW);
