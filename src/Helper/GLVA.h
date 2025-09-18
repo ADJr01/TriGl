@@ -14,7 +14,6 @@ class GLVA {
 private:
     std::unique_ptr<glx_type::uint[]> VBOs = nullptr;
     glx_type::uint VAO;
-    bool buildComplete = false;
     glx_type::uint MAX_VBO_SIZE = 0;
     glx_type::uint VBO_BIND_COUNTER  = 0;
 
@@ -39,10 +38,14 @@ public:
     void bindVertexInfo_I(std::array<int,N>& vertices,int per_vertex_size) {
         if (this->VBO_BIND_COUNTER >= MAX_VBO_SIZE) throw std::runtime_error("Too many VBO buffer objects To Record");
         glBindBuffer(GL_ARRAY_BUFFER,this->VBOs[this->VBO_BIND_COUNTER]);
-        glBufferData(GL_ARRAY_BUFFER,N*sizeof(float),vertices.data(),GL_STATIC_DRAW);
-        glVertexAttribIPointer(this->VBO_BIND_COUNTER,per_vertex_size,GL_FLOAT,N*sizeof(int),static_cast<void *>(0));
+        glBufferData(GL_ARRAY_BUFFER,N*sizeof(int),vertices.data(),GL_STATIC_DRAW);
+        glVertexAttribIPointer(this->VBO_BIND_COUNTER,per_vertex_size,GL_INT,N*sizeof(int),static_cast<void *>(0));
         glEnableVertexAttribArray(this->VBO_BIND_COUNTER);
         this->VBO_BIND_COUNTER+=1;
+    }
+
+    glx_type::uint& getVertexArray() {
+        return this->VAO;
     }
 
 
