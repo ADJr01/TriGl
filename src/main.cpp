@@ -87,7 +87,15 @@ int main() {
         glBindVertexArray(0);
         glUseProgram(0);
     });
-
-    glx.launch();
-    glx.ShaderTool().deleteProgram();
+    //
+    // glx.launch();
+    // glx.ShaderTool().deleteProgram();
+    int n = 3;
+    std::unique_ptr<int[]> indices = std::make_unique<int[]>(n);
+    indices[0] = 98;
+    indices[1] = 32;
+    indices[2] = 76;
+    for (auto index=0;index<n;index++) {
+        printf("%d\n",indices[index]);
+    }
 }
