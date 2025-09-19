@@ -23,6 +23,7 @@ public:
         this->VBOs = std::make_unique<glx_type::uint[]>(this->MAX_VBO_SIZE);
         glGenVertexArrays(1,&this->VAO);
         glBindVertexArray(this->VAO);
+        glGenBuffers(this->MAX_VBO_SIZE,this->VBOs.get());
     }
 
     template <std::size_t N>
@@ -30,7 +31,7 @@ public:
         if (this->VBO_BIND_COUNTER >= MAX_VBO_SIZE) throw std::runtime_error("Too many VBO buffer objects To Record");
         glBindBuffer(GL_ARRAY_BUFFER,this->VBOs[this->VBO_BIND_COUNTER]);
         glBufferData(GL_ARRAY_BUFFER,N*sizeof(float),vertices.data(),GL_STATIC_DRAW);
-        glVertexAttribPointer(this->VBO_BIND_COUNTER,per_vertex_size,GL_FLOAT,GL_FALSE,N*sizeof(float),static_cast<void *>(0));
+        glVertexAttribPointer(this->VBO_BIND_COUNTER,per_vertex_size,GL_FLOAT,GL_FALSE,per_vertex_size*sizeof(float),static_cast<void *>(0));
         glEnableVertexAttribArray(this->VBO_BIND_COUNTER);
         this->VBO_BIND_COUNTER+=1;
     }
@@ -39,7 +40,7 @@ public:
         if (this->VBO_BIND_COUNTER >= MAX_VBO_SIZE) throw std::runtime_error("Too many VBO buffer objects To Record");
         glBindBuffer(GL_ARRAY_BUFFER,this->VBOs[this->VBO_BIND_COUNTER]);
         glBufferData(GL_ARRAY_BUFFER,N*sizeof(int),vertices.data(),GL_STATIC_DRAW);
-        glVertexAttribIPointer(this->VBO_BIND_COUNTER,per_vertex_size,GL_INT,N*sizeof(int),static_cast<void *>(0));
+        glVertexAttribIPointer(this->VBO_BIND_COUNTER,per_vertex_size,GL_INT,per_vertex_size*sizeof(int),static_cast<void *>(0));
         glEnableVertexAttribArray(this->VBO_BIND_COUNTER);
         this->VBO_BIND_COUNTER+=1;
     }
