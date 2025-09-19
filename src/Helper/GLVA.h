@@ -9,7 +9,7 @@
 #include "../GLX/lib/Numeric.h"
 #include "GL/glew.h"
 
-template <typename T>
+
 class GLVA {
 private:
     std::unique_ptr<glx_type::uint[]> VBOs = nullptr;

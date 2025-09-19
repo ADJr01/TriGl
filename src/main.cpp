@@ -5,12 +5,12 @@
 #include <glm/gtc/matrix_transform.hpp>
 #include <glm/gtc/type_ptr.hpp>
 
+#include "Helper/GLVA.h"
+
 const std::string vs = R"(D:/Projects/Personal/CG/TriGL/src/shaders/vertex.glsl)";
 const std::string fs = R"(D:/Projects/Personal/CG/TriGL/src/shaders/fragment.glsl)";
 unsigned int program;
-glx_type::uint VAO;
 int uniformModel,iTime;
-std::array<glx_type::uint,2> VBOs;
 constexpr glx_type::uint VERTEX_TO_DRAW_COUNT = 6;
 float moveOffset=0.3,moveSpeedPerFrame=0.003,MaxMoveRight=0.5,MaxMoveLeft=-0.5;
 bool isMovingRight=true;
@@ -27,8 +27,8 @@ void movementOffset() {
     }
 }
 int main() {
-
     GLX glx;
+    GLVA* glva = nullptr;
     glx.setWindowTitle("TriCube");
     glx.buildMode(BUILD_MODE::DEV);
     //creating vertices
@@ -48,24 +48,9 @@ int main() {
     glx.ShaderTool().setVertexShaderPath(vs);
 
     glx.addPostLaunchProcedure([&]() {
-        glGenVertexArrays(1,&VAO);
-        glBindVertexArray(VAO);
-        //generating 2 vertex buffer
-        glGenBuffers(2,VBOs.data());
-        //?position
-        glBindBuffer(GL_ARRAY_BUFFER,VBOs[0]);
-
-        glBufferData(GL_ARRAY_BUFFER,positions.size()*sizeof(float),positions.data(),GL_STATIC_DRAW);
-
-        glVertexAttribPointer(0,3,GL_FLOAT,GL_FALSE,3*sizeof(float),(void*)0);
-
-        glEnableVertexAttribArray(0);
-
-        //?Color
-        glBindBuffer(GL_ARRAY_BUFFER,VBOs[1]);
-        glBufferData(GL_ARRAY_BUFFER,index_list.size()*sizeof(float),index_list.data(),GL_STATIC_DRAW);
-        glVertexAttribIPointer(1,1,GL_INT,sizeof(int),(void*)0);
-        glEnableVertexAttribArray(1);
+        glva = new GLVA(2);
+        glva->bindVertexInfo_F(positions,3);
+        glva->bindVertexInfo_I(index_list,1);
         glx.ShaderTool().buildProgram();
         uniformModel = glGetUniformLocation(glx.ShaderTool().getProgram(),"uniformModel");
         iTime = glGetUniformLocation(glx.ShaderTool().getProgram(),"iTime");
@@ -74,7 +59,7 @@ int main() {
     glx.onTick([&]() {
         movementOffset(); // moving out triangle
         glUseProgram( glx.ShaderTool().getProgram());//selecting out shader program
-        glBindVertexArray(VAO); //selecting our current vertex array object
+        glBindVertexArray(glva->getVertexArray()); //selecting our current vertex array object
         //? handling Uniform
         auto Identity = glm::mat4(1.0); //  Identity Matrix
         Identity = glm::translate(Identity,glm::vec3(moveOffset,0.0f,0.0f));
@@ -88,14 +73,7 @@ int main() {
         glUseProgram(0);
     });
     //
-    // glx.launch();
-    // glx.ShaderTool().deleteProgram();
-    int n = 3;
-    std::unique_ptr<int[]> indices = std::make_unique<int[]>(n);
-    indices[0] = 98;
-    indices[1] = 32;
-    indices[2] = 76;
-    for (auto index=0;index<n;index++) {
-        printf("%d\n",indices[index]);
-    }
+    glx.launch();
+    glx.ShaderTool().deleteProgram();
+
 }
