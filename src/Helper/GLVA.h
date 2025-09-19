@@ -48,6 +48,11 @@ public:
     glx_type::uint& getVertexArray() {
         return this->VAO;
     }
+    ~GLVA() {
+        glDeleteBuffers(this->MAX_VBO_SIZE,this->VBOs.get());
+        this->VBOs.reset();
+        glDeleteVertexArrays(1, &this->VAO);
+    }
 
 
 };
