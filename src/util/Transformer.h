@@ -6,7 +6,7 @@
 #define TRIGL_TRANSFORMER_H
 class Transformer {
 private:
-    float moveOffset=0.3,moveSpeedPerFrame=0.003,MaxMoveRight=0.5,MaxMoveLeft=-0.5,rotationSpeed=0.3f;
+    float moveOffset=0.3,moveSpeedPerFrame=0.0038,MaxMoveRight=0.59,MaxMoveLeft=-0.59,rotationSpeed=0.35f;
     bool isMovingRight=true;
     //rotation
     float rotation = 0.0f;

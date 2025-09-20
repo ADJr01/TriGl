@@ -27,20 +27,23 @@ public:
     }
 
     template <std::size_t N>
-    void bindVertexInfo_F(std::array<float,N>& vertices,int per_vertex_size) {
+    void bindVertexInfo_F(std::array<float,N>& vertices,int attribToCount,int per_vertex_size,const void* countFrom) {
         if (this->VBO_BIND_COUNTER >= MAX_VBO_SIZE) throw std::runtime_error("Too many VBO buffer objects To Record");
         glBindBuffer(GL_ARRAY_BUFFER,this->VBOs[this->VBO_BIND_COUNTER]);
         glBufferData(GL_ARRAY_BUFFER,N*sizeof(float),vertices.data(),GL_STATIC_DRAW);
-        glVertexAttribPointer(this->VBO_BIND_COUNTER,per_vertex_size,GL_FLOAT,GL_FALSE,per_vertex_size*sizeof(float),static_cast<void *>(0));
+        glVertexAttribPointer(this->VBO_BIND_COUNTER,attribToCount,GL_FLOAT,GL_FALSE,per_vertex_size*sizeof(float),const_cast<void *>(countFrom));
         glEnableVertexAttribArray(this->VBO_BIND_COUNTER);
         this->VBO_BIND_COUNTER+=1;
     }
+    bool didFilledVertexAttachments() const {
+        return this->VBO_BIND_COUNTER == MAX_VBO_SIZE;
+    }
     template <std::size_t N>
-    void bindVertexInfo_I(std::array<int,N>& vertices,int per_vertex_size) {
+    void bindVertexInfo_I(std::array<int,N>& vertices,int attribToCount,int per_vertex_size,const void* countFrom) {
         if (this->VBO_BIND_COUNTER >= MAX_VBO_SIZE) throw std::runtime_error("Too many VBO buffer objects To Record");
         glBindBuffer(GL_ARRAY_BUFFER,this->VBOs[this->VBO_BIND_COUNTER]);
         glBufferData(GL_ARRAY_BUFFER,N*sizeof(int),vertices.data(),GL_STATIC_DRAW);
-        glVertexAttribIPointer(this->VBO_BIND_COUNTER,per_vertex_size,GL_INT,per_vertex_size*sizeof(int),static_cast<void *>(0));
+        glVertexAttribIPointer(this->VBO_BIND_COUNTER,attribToCount,GL_INT,per_vertex_size*sizeof(int),const_cast<void *>(countFrom));
         glEnableVertexAttribArray(this->VBO_BIND_COUNTER);
         this->VBO_BIND_COUNTER+=1;
     }

@@ -22,40 +22,42 @@ int main() {
     glx.setWindowTitle("TriCube");
     glx.buildMode(BUILD_MODE::DEV);
     //creating vertices
-    std::array<float,18> positions = {
-             //? POS
-        -0.3f, -0.3f, 0.0f,//q3
-        -0.3f, 0.3f, 0.0f, //q2
-        0.3f, 0.3f, 0.0f, //q1
-        0.3f, 0.3f, 0.0f, //q1
-        0.3f, -0.3f, 0.0f, //q4
-        -0.3f, -0.3f, 0.0f,//q3
+    std::array<float,42> vertexAttribs = {
+             //? POS           COLORS
+        -0.3f, -0.3f, 0.0f,   0.6,  1.0,  0.0,  1.0,//q3
+        -0.3f, 0.3f, 0.0f,    0.4,  0.67, 0.33, 1.0,//q2
+         0.3f, 0.3f, 0.0f,    0.0, 0.0,  1.0,  1.0,//q1
+         0.3f, 0.3f, 0.0f,    0.7, 0.33, 0.67, 1.0,//q1
+         0.3f, -0.3f, 0.0f,   0.0, 0.67, 0.33, 1.0//q4
+        -0.3f, -0.3f, 0.0f,   0.6, 0.0,  1.0,  1.0//q3
     };
-    std::array<int,6> index_list = {
-        1,2,3,1,0,3
-    };
+
     glx.ShaderTool().setFragmentShaderPath(fs);
     glx.ShaderTool().setVertexShaderPath(vs);
 
     glx.addPostLaunchProcedure([&]() {
         glva = new GLVA(2);
-        glva->bindVertexInfo_F(positions,3);
-        glva->bindVertexInfo_I(index_list,1);
+        glva->bindVertexInfo_F(vertexAttribs,3,7,(void*)0);
+        glva->bindVertexInfo_F(vertexAttribs,4,7,(void*)(3*sizeof(float)));
         glx.ShaderTool().buildProgram();
         uniformModel = glGetUniformLocation(glx.ShaderTool().getProgram(),"uniformModel");
         iTime = glGetUniformLocation(glx.ShaderTool().getProgram(),"iTime");
+        if (!glva->didFilledVertexAttachments())throw std::runtime_error("GLX VERTEX ATTACHMENT WAS NOT FILLED");
+
     });
 
     glx.onTick([&]() {
+        const double time = glfwGetTime();
         trans.movementOffset(); // moving out triangle
         glUseProgram( glx.ShaderTool().getProgram());//selecting out shader program
         glBindVertexArray(glva->getVertexArray()); //selecting our current vertex array object
         //? handling Uniform
         auto Identity = glm::mat4(1.0); //  Identity Matrix
-        Identity = glm::translate(Identity,glm::vec3(trans.getMoveOffset(),0.0f,0.0f));
-        Identity = glm::rotate(Identity,toRadians*trans.getNextRotation(),glm::vec3(0.0f,0.0f,1.0f));
+        //Identity = glm::translate(Identity,glm::vec3(trans.getMoveOffset(),0.0f,0.0f));
+        //Identity = glm::rotate(Identity,toRadians*trans.getNextRotation(),glm::vec3(0.0f,0.0f,1.0f));
+        //Identity = glm::scale(Identity,glm::vec3(1.0f*ts,1.0f*tc,1.0f));
         glUniformMatrix4fv(uniformModel,1,GL_FALSE,glm::value_ptr(Identity));
-        glUniform1f(iTime,static_cast<float>(glfwGetTime()));
+        glUniform1f(iTime,static_cast<float>(time));
         //? handling Rest of the Drawing functions
         glClear(GL_COLOR_BUFFER_BIT);
         glDrawArrays( GL_TRIANGLES,0,VERTEX_TO_DRAW_COUNT);
@@ -64,8 +66,10 @@ int main() {
         glUseProgram(0);
     });
     //
-    glx.launch();
-    glx.ShaderTool().deleteProgram();
-    delete glva;
+
+        glx.launch();
+        glx.ShaderTool().deleteProgram();
+        delete glva;
+
 
 }
