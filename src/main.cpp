@@ -22,14 +22,15 @@ int main() {
     glx.setWindowTitle("TriCube");
     glx.buildMode(BUILD_MODE::DEV);
     //creating vertices
-    std::array<float,42> vertexAttribs = {
-             //? POS           COLORS
-        -0.3f, -0.3f, 0.0f,   0.6,  1.0,  0.0,  1.0,//q3
-        -0.3f, 0.3f, 0.0f,    0.4,  0.67, 0.33, 1.0,//q2
-         0.3f, 0.3f, 0.0f,    0.0, 0.0,  1.0,  1.0,//q1
-         0.3f, 0.3f, 0.0f,    0.7, 0.33, 0.67, 1.0,//q1
-         0.3f, -0.3f, 0.0f,   0.0, 0.67, 0.33, 1.0//q4
-        -0.3f, -0.3f, 0.0f,   0.6, 0.0,  1.0,  1.0//q3
+    std::array<float, 42> vertexAttribs = {
+        //   POSITIONS        COLORS (R, G, B, A)
+        -0.3f, -0.3f, 0.0f,   1.0f, 0.2f, 0.4f, 1.0f, // bottom-left (reddish)
+         0.3f, -0.3f, 0.0f,   1.0f, 0.4f, 0.6f, 1.0f, // bottom-right
+        -0.3f,  0.3f, 0.0f,   0.9f, 0.5f, 0.7f, 1.0f, // top-left (pinkish)
+
+         0.3f, -0.3f, 0.0f,   1.0f, 0.4f, 0.6f, 1.0f, // bottom-right
+         0.3f,  0.3f, 0.0f,   1.0f, 0.7f, 0.8f, 1.0f, // top-right (light pink)
+        -0.3f,  0.3f, 0.0f,   0.9f, 0.5f, 0.7f, 1.0f  // top-left
     };
 
     glx.ShaderTool().setFragmentShaderPath(fs);
@@ -53,8 +54,8 @@ int main() {
         glBindVertexArray(glva->getVertexArray()); //selecting our current vertex array object
         //? handling Uniform
         auto Identity = glm::mat4(1.0); //  Identity Matrix
-        //Identity = glm::translate(Identity,glm::vec3(trans.getMoveOffset(),0.0f,0.0f));
-        //Identity = glm::rotate(Identity,toRadians*trans.getNextRotation(),glm::vec3(0.0f,0.0f,1.0f));
+        Identity = glm::translate(Identity,glm::vec3(trans.getMoveOffset(),0.0f,0.0f));
+        Identity = glm::rotate(Identity,toRadians*trans.getNextRotation(),glm::vec3(0.0f,0.0f,1.0f));
         //Identity = glm::scale(Identity,glm::vec3(1.0f*ts,1.0f*tc,1.0f));
         glUniformMatrix4fv(uniformModel,1,GL_FALSE,glm::value_ptr(Identity));
         glUniform1f(iTime,static_cast<float>(time));
