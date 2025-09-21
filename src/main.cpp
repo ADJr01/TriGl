@@ -54,6 +54,7 @@ int main() {
         trans.movementOffset(); // moving out triangle
         glUseProgram( glx.ShaderTool().getProgram());//selecting out shader program
         glBindVertexArray(glva->getVertexArray()); //selecting our current vertex array object
+        texture->bind();
         //? handling Uniform
         auto Identity = glm::mat4(1.0); //  Identity Matrix
         Identity = glm::translate(Identity,glm::vec3(trans.getMoveOffset(),0.0f,0.0f));

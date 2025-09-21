@@ -1,8 +1,7 @@
 //
 // Created by STHEP on 9/21/2025.
 //
-#define STB_IMAGE_IMPLEMENTATION
-#include "stb_image.h"
+
 #include "../GLX/lib/Numeric.h"
 
 #ifndef TRIGL_TEXTURE_H
@@ -17,7 +16,7 @@ public:
    Texture(const char* pathToTexture);
    ~Texture();
 
-   void bind();
+   void bind() const;
 };
 
 
