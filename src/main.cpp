@@ -4,7 +4,6 @@
 #include <glm/glm.hpp>
 #include <glm/gtc/matrix_transform.hpp>
 #include <glm/gtc/type_ptr.hpp>
-
 #include "Helper/GLVA.h"
 #include "util/Transformer.h"
 
@@ -16,21 +15,21 @@ constexpr glx_type::uint VERTEX_TO_DRAW_COUNT = 6;
 constexpr float toRadians = std::numbers::pi/180;
 
 int main() {
-    Transformer trans;
     GLX glx;
     GLVA* glva = nullptr;
+    Transformer trans;
     glx.setWindowTitle("TriCube");
     glx.buildMode(BUILD_MODE::DEV);
     //creating vertices
     std::array<float, 42> vertexAttribs = {
         //   POSITIONS        COLORS (R, G, B, A)
-        -0.3f, -0.3f, 0.0f,   1.0f, 0.2f, 0.4f, 1.0f, // bottom-left (reddish)
-         0.3f, -0.3f, 0.0f,   1.0f, 0.4f, 0.6f, 1.0f, // bottom-right
-        -0.3f,  0.3f, 0.0f,   0.9f, 0.5f, 0.7f, 1.0f, // top-left (pinkish)
+        -0.3f, -0.3f, 0.0f,   1.0f, 0.2f, 0.4f, 1.0f, // bottom-left
+         0.3f, -0.3f, 0.0f,   0.5f, 0.8f, 0.9f, 1.0f, // bottom-right
+        -0.3f,  0.3f, 0.0f,   0.9f, 0.5f, 0.8f, 1.0f, // top-left
 
-         0.3f, -0.3f, 0.0f,   1.0f, 0.4f, 0.6f, 1.0f, // bottom-right
-         0.3f,  0.3f, 0.0f,   1.0f, 0.7f, 0.8f, 1.0f, // top-right (light pink)
-        -0.3f,  0.3f, 0.0f,   0.9f, 0.5f, 0.7f, 1.0f  // top-left
+         0.3f, -0.3f, 0.0f,   .5f, 0.25f, 1.f, 1.0f, // bottom-right
+         0.3f,  0.3f, 0.0f,   1.0f, 0.7f, 0.8f, 1.0f, // top-right
+        -0.3f,  0.3f, 0.0f,   0.25f, 0.8f, 0.15f, 1.0f  // top-left
     };
 
     glx.ShaderTool().setFragmentShaderPath(fs);

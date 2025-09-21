@@ -45,6 +45,9 @@ file(GLOB_RECURSE SOURCE_FILES CONFIGURE_DEPENDS
 add_executable(TriGL
         ${SOURCE_FILES}
         src/util/Transformer.h
+        src/util/stb_image.h
+        src/util/Texture.cpp
+        src/util/Texture.h
 )
 
 # --- Link everything ---
