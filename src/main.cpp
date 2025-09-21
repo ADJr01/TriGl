@@ -6,11 +6,13 @@
 #include <glm/gtc/type_ptr.hpp>
 #include "Helper/GLVA.h"
 #include "util/Transformer.h"
-
+#include "util/Texture.h"
 const std::string vs = R"(D:/Projects/Personal/CG/TriGL/src/shaders/vertex.glsl)";
 const std::string fs = R"(D:/Projects/Personal/CG/TriGL/src/shaders/fragment.glsl)";
+const std::string texturePath = R"(D:/Projects/Personal/CG/TriGL/src/asset/brick.png)";
 unsigned int program;
 int uniformModel,iTime;
+Texture* texture = nullptr;
 constexpr glx_type::uint VERTEX_TO_DRAW_COUNT = 6;
 constexpr float toRadians = std::numbers::pi/180;
 
@@ -36,6 +38,7 @@ int main() {
     glx.ShaderTool().setVertexShaderPath(vs);
 
     glx.addPostLaunchProcedure([&]() {
+        texture = new Texture(texturePath.c_str());
         glva = new GLVA(2);
         glva->bindVertexInfo_F(vertexAttribs,3,7,(void*)0);
         glva->bindVertexInfo_F(vertexAttribs,4,7,(void*)(3*sizeof(float)));
@@ -70,6 +73,7 @@ int main() {
         glx.launch();
         glx.ShaderTool().deleteProgram();
         delete glva;
+        delete texture;
 
 
 }
