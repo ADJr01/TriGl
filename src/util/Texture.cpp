@@ -7,8 +7,8 @@
 #include "GL/glew.h"
 
 Texture::Texture(const char* pathToTexture) {
-    int width,height,channel;
-    glx_type::uint
+    int width,height,channels;
+    glx_type::uchar* texture_data = stbi_load(pathToTexture,&width,&height,&channels,STBI_rgb_alpha);
 }
 
 Texture::~Texture() {
