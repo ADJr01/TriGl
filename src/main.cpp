@@ -9,10 +9,12 @@
 #include "util/Texture.h"
 const std::string vs = R"(D:/Projects/Personal/CG/TriGL/src/shaders/vertex.glsl)";
 const std::string fs = R"(D:/Projects/Personal/CG/TriGL/src/shaders/fragment.glsl)";
-const std::string texturePath = R"(D:/Projects/Personal/CG/TriGL/src/asset/brick.png)";
+const std::string texturePath = R"(D:/Projects/Personal/CG/TriGL/src/asset/brick.jpg)";
+const std::string maskTexturePath = R"(D:/Projects/Personal/CG/TriGL/src/asset/brick_mask.png)";
 unsigned int program;
 int uniformModel,iTime;
 Texture* texture = nullptr;
+Texture* maskTexture = nullptr;
 constexpr glx_type::uint VERTEX_TO_DRAW_COUNT = 6;
 constexpr float toRadians = std::numbers::pi/180;
 
@@ -39,6 +41,7 @@ int main() {
 
     glx.addPostLaunchProcedure([&]() {
         texture = new Texture(texturePath.c_str());
+        maskTexture = new Texture(maskTexturePath.c_str());
         glva = new GLVA(2);
         glva->bindVertexInfo_F(vertexAttribs,3,7,(void*)0);
         glva->bindVertexInfo_F(vertexAttribs,4,7,(void*)(3*sizeof(float)));
@@ -46,6 +49,13 @@ int main() {
         uniformModel = glGetUniformLocation(glx.ShaderTool().getProgram(),"uniformModel");
         iTime = glGetUniformLocation(glx.ShaderTool().getProgram(),"iTime");
         if (!glva->didFilledVertexAttachments())throw std::runtime_error("GLX VERTEX ATTACHMENT WAS NOT FILLED");
+        //setting texture unit
+        glUseProgram( glx.ShaderTool().getProgram());
+        glUniform1i(glGetUniformLocation(glx.ShaderTool().getProgram(),"material"),0);
+        glUniform1i(glGetUniformLocation(glx.ShaderTool().getProgram(),"materialMask"),1);
+
+        //enable alpha blending
+        glBlendFunc(GL_SRC_ALPHA,GL_ONE_MINUS_SRC_ALPHA);
 
     });
 
@@ -54,7 +64,8 @@ int main() {
         trans.movementOffset(); // moving out triangle
         glUseProgram( glx.ShaderTool().getProgram());//selecting out shader program
         glBindVertexArray(glva->getVertexArray()); //selecting our current vertex array object
-        texture->bind();
+        texture->bind(0);
+        maskTexture->bind(1);
         //? handling Uniform
         auto Identity = glm::mat4(1.0); //  Identity Matrix
         //Identity = glm::translate(Identity,glm::vec3(trans.getMoveOffset(),0.0f,0.0f));
@@ -75,6 +86,7 @@ int main() {
         glx.ShaderTool().deleteProgram();
         delete glva;
         delete texture;
+        delete maskTexture;
 
 
 }

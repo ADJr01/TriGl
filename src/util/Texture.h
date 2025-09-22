@@ -16,7 +16,7 @@ public:
    Texture(const char* pathToTexture);
    ~Texture();
 
-   void bind() const;
+   void bind(glx_type::uint textureUnit) const;
 };
 
 

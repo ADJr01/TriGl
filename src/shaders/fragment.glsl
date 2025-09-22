@@ -6,13 +6,11 @@ in vec4 positionData;
 in vec2 textureCoord;
 out vec4 pixelColor;
 uniform sampler2D material;
+uniform sampler2D materialMask;
 
 void main(){
-//    float x = pow(positionData.x,2.);
-//    float y = pow(positionData.y,2.);
-//    float d = sqrt(x+y);
-//    float dx = sin(PI*time / d);
-//    float effect = smoothstep(0.1,dx-0.1,dx);
-    pixelColor = texture(material,textureCoord);
+    vec3 baseColor = texture(material,textureCoord).rgb;
+    float alpha = texture(materialMask,textureCoord).r;
+    pixelColor = vec4(baseColor,alpha);
 }
 
