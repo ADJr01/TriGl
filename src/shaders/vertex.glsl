@@ -4,7 +4,7 @@ layout (location = 1) in vec4 vertColor;
 out vec4 fragColor;
 out float time;
 out vec4 positionData;
-
+out vec2 textureCoord;
 uniform mat4 uniformModel;
 uniform float iTime;
 

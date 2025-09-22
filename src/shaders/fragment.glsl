@@ -3,6 +3,7 @@
 in  vec4 fragColor;
 in float time;
 in vec4 positionData;
+in vec2 textureCoord;
 out vec4 pixelColor;
 
 

@@ -13,10 +13,24 @@ Texture::Texture(const char* pathToTexture) {
     //create texture
     glCreateTextures(GL_TEXTURE_2D,1,&this->textureID);
     glBindTexture(GL_TEXTURE_2D,this->textureID);
-    //upload to GPU
-    glTexImage2D(GL_TEXTURE_2D,0,GL_RGBA,width,height,0,GL_RGBA,GL_UNSIGNED_BYTE,texture_pixels);
-    //free memory
-    stbi_image_free(texture_pixels);
+
+    glTexImage2D(GL_TEXTURE_2D,     //upload to GPU
+        0,
+        GL_RGBA,
+        width,
+        height,
+        0,
+        GL_RGBA,
+        GL_UNSIGNED_BYTE,
+        texture_pixels);
+    stbi_image_free(texture_pixels);    //free memory
+
+    //configuring sampler
+    glTexParameteri(GL_TEXTURE_2D,GL_TEXTURE_WRAP_S,GL_REPEAT);
+    glTexParameteri(GL_TEXTURE_2D,GL_TEXTURE_WRAP_T,GL_REPEAT);
+    glTexParameteri(GL_TEXTURE_2D,GL_TEXTURE_MIN_FILTER,GL_NEAREST);
+    glTexParameteri(GL_TEXTURE_2D,GL_TEXTURE_MAG_FILTER,GL_LINEAR);
+
 }
 
 Texture::~Texture() {
