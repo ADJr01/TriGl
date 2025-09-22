@@ -5,7 +5,7 @@ in float time;
 in vec4 positionData;
 in vec2 textureCoord;
 out vec4 pixelColor;
-
+uniform sampler2D material;
 
 void main(){
 //    float x = pow(positionData.x,2.);
@@ -13,6 +13,6 @@ void main(){
 //    float d = sqrt(x+y);
 //    float dx = sin(PI*time / d);
 //    float effect = smoothstep(0.1,dx-0.1,dx);
-    pixelColor = fragColor;
+    pixelColor = texture(material,textureCoord);
 }
 
