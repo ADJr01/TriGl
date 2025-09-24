@@ -20,6 +20,8 @@ constexpr float toRadians = std::numbers::pi/180;
 
 int main() {
     GLX glx;
+    glx.setVersionMajor(4);
+    glx.setVersionMinor(6);
     GLVA* glva = nullptr;
     Transformer trans;
     glx.setWindowTitle("TriCube");

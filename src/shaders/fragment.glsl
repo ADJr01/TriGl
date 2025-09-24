@@ -1,4 +1,4 @@
-#version 330 core
+#version 460 core
 #define PI 3.14159265359
 in  vec4 fragColor;
 in float time;
@@ -9,8 +9,8 @@ uniform sampler2D material;
 uniform sampler2D materialMask;
 
 void main(){
-    vec3 baseColor = texture(material,textureCoord).rgb;
+    vec3 baseColor = sqrt(time*length(positionData.xy))*texture(material,textureCoord).rgb;
     float alpha = texture(materialMask,textureCoord).r;
-    pixelColor = vec4(baseColor,alpha);
+    pixelColor =vec4(baseColor,alpha);
 }
 
