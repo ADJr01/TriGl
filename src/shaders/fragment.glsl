@@ -9,8 +9,8 @@ uniform sampler2D material;
 uniform sampler2D materialMask;
 
 void main(){
-    vec3 baseColor = sqrt(time*length(positionData.xy))*texture(material,textureCoord).rgb;
-    float alpha = texture(materialMask,textureCoord).r;
+    vec3 baseColor = texture(material,textureCoord).rgb;
+    float alpha = texture(materialMask,textureCoord).r * texture(materialMask,textureCoord).g;
     pixelColor =vec4(baseColor,alpha);
 }
 
