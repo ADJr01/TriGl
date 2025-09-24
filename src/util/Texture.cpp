@@ -11,7 +11,7 @@ Texture::Texture(const char* pathToTexture) {
     int width,height,channels;
     glx_type::uchar* texture_pixels = stbi_load(pathToTexture,&width,&height,&channels,STBI_rgb_alpha);
     //create texture
-    glCreateTextures(GL_TEXTURE_2D,1,&this->textureID);
+    glGenTextures(1,&this->textureID);
     glBindTexture(GL_TEXTURE_2D,this->textureID);
 
     glTexImage2D(GL_TEXTURE_2D,     //upload to GPU
