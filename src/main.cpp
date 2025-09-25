@@ -19,6 +19,7 @@ constexpr glx_type::uint VERTEX_TO_DRAW_COUNT = 6;
 constexpr float toRadians = std::numbers::pi/180;
 
 int main() {
+    const float cubeSize=0.9;
     GLX glx;
     glx.setVersionMajor(4);
     glx.setVersionMinor(6);
@@ -29,13 +30,13 @@ int main() {
     //creating vertices
     std::array<float, 42> vertexAttribs = {
         //   POSITIONS        COLORS (R, G, B, A)
-        -0.3f, -0.3f, 0.0f,   1.0f, 0.2f, 0.4f, 1.0f, // bottom-left
-         0.3f, -0.3f, 0.0f,   0.5f, 0.8f, 0.9f, 1.0f, // bottom-right
-        -0.3f,  0.3f, 0.0f,   0.9f, 0.5f, 0.8f, 1.0f, // top-left
+        -cubeSize, -cubeSize, 0.0f,   1.0f, 0.2f, 0.4f, 1.0f, // bottom-left
+         cubeSize, -cubeSize, 0.0f,   0.5f, 0.8f, 0.9f, 1.0f, // bottom-right
+        -cubeSize,  cubeSize, 0.0f,   0.9f, 0.5f, 0.8f, 1.0f, // top-left
 
-         0.3f, -0.3f, 0.0f,   .5f, 0.25f, 1.f, 1.0f, // bottom-right
-         0.3f,  0.3f, 0.0f,   1.0f, 0.7f, 0.8f, 1.0f, // top-right
-        -0.3f,  0.3f, 0.0f,   0.25f, 0.8f, 0.15f, 1.0f  // top-left
+         cubeSize, -cubeSize, 0.0f,   .5f, 0.25f, 1.f, 1.0f, // bottom-right
+         cubeSize,  cubeSize, 0.0f,   1.0f, 0.7f, 0.8f, 1.0f, // top-right
+        -cubeSize,  cubeSize, 0.0f,   0.25f, 0.8f, 0.15f, 1.0f  // top-left
     };
 
     glx.ShaderTool().setFragmentShaderPath(fs);

@@ -16,6 +16,6 @@ void main(){
     time=iTime;
     vec4 finalPos = uniformModel * vec4(x,y,z,1.0);
     positionData = finalPos;
-    textureCoord=vec2(0.5,-0.5) * (finalPos.xy+vec2(1.0));
+    textureCoord= (finalPos.xy+vec2(1.0)) * vec2(0.5,-0.5);
     gl_Position = finalPos;
 }

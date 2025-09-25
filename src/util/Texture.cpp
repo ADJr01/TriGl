@@ -5,6 +5,7 @@
 #include "Texture.h"
 #define STB_IMAGE_IMPLEMENTATION
 #include "stb_image.h"
+#include "../GLX/lib/prefefs.h"
 #include "GL/glew.h"
 
 Texture::Texture(const char* pathToTexture) {
@@ -12,6 +13,7 @@ Texture::Texture(const char* pathToTexture) {
     glx_type::uchar* texture_pixels = stbi_load(pathToTexture,&width,&height,&channels,STBI_rgb_alpha);
     //create texture
     glGenTextures(1,&this->textureID);
+    LOG("Generated Texture ID: ${}",this->textureID);
     glBindTexture(GL_TEXTURE_2D,this->textureID);
 
     glTexImage2D(GL_TEXTURE_2D,     //upload to GPU
@@ -34,6 +36,7 @@ Texture::Texture(const char* pathToTexture) {
 }
 
 Texture::~Texture() {
+    glBindTexture(GL_TEXTURE_2D,0);
     glDeleteTextures(1,&this->textureID);
 }
 
