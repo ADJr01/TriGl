@@ -9,8 +9,8 @@
 #include "util/Texture.h"
 const std::string vs = R"(D:/Projects/Personal/CG/TriGL/src/shaders/vertex.glsl)";
 const std::string fs = R"(D:/Projects/Personal/CG/TriGL/src/shaders/fragment.glsl)";
-const std::string texturePath = R"(D:/Projects/Personal/CG/TriGL/src/asset/brick.jpg)";
-const std::string maskTexturePath = R"(D:/Projects/Personal/CG/TriGL/src/asset/brick_mask.png)";
+const std::string texturePath = R"(D:/Projects/Personal/CG/TriGL/src/asset/iron.png)";
+const std::string maskTexturePath = R"(D:/Projects/Personal/CG/TriGL/src/asset/iron_alpha.png)";
 unsigned int program;
 int uniformModel,iTime;
 Texture* texture = nullptr;
@@ -19,7 +19,7 @@ constexpr glx_type::uint VERTEX_TO_DRAW_COUNT = 6;
 constexpr float toRadians = std::numbers::pi/180;
 
 int main() {
-    const float cubeSize=1.0;
+    const float cubeSize=0.5;
     GLX glx;
     glx.setVersionMajor(4);
     glx.setVersionMinor(6);
@@ -28,15 +28,15 @@ int main() {
     glx.setWindowTitle("TriCube");
     glx.buildMode(BUILD_MODE::DEV);
     //creating vertices
-    std::array<float, 42> vertexAttribs = {
+    std::array<float, 30> vertexAttribs = {
         //   POSITIONS        COLORS (R, G, B, A)
-        -cubeSize, -cubeSize, 0.0f,   1.0f, 0.2f, 0.4f, 1.0f, // bottom-left
-         cubeSize, -cubeSize, 0.0f,   0.5f, 0.8f, 0.9f, 1.0f, // bottom-right
-        -cubeSize,  cubeSize, 0.0f,   0.9f, 0.5f, 0.8f, 1.0f, // top-left
+        -cubeSize, -cubeSize, 0.0f,   0.0f, 0.0f, // bottom-left
+         cubeSize, -cubeSize, 0.0f,   1.0f, 0.0f, // bottom-right
+        -cubeSize,  cubeSize, 0.0f,   0.0,  1.0, // top-left
 
-         cubeSize, -cubeSize, 0.0f,   .5f, 0.25f, 1.f, 1.0f, // bottom-right
-         cubeSize,  cubeSize, 0.0f,   1.0f, 0.7f, 0.8f, 1.0f, // top-right
-        -cubeSize,  cubeSize, 0.0f,   0.25f, 0.8f, 0.15f, 1.0f  // top-left
+         cubeSize, -cubeSize, 0.0f,   1.0f, 0.0f, // bottom-right
+         cubeSize,  cubeSize, 0.0f,   1.0,  1.0, // top-right
+        -cubeSize,  cubeSize, 0.0f,   0.0,  1.0,  // top-left
     };
 
     glx.ShaderTool().setFragmentShaderPath(fs);
@@ -46,8 +46,8 @@ int main() {
         texture = new Texture(texturePath.c_str());
         maskTexture = new Texture(maskTexturePath.c_str());
         glva = new GLVA(2);
-        glva->bindVertexInfo_F(vertexAttribs,3,7,(void*)0);
-        glva->bindVertexInfo_F(vertexAttribs,4,7,(void*)(3*sizeof(float)));
+        glva->bindVertexInfo_F(vertexAttribs,3,5,(void*)0);
+        glva->bindVertexInfo_F(vertexAttribs,2,5,(void*)(3*sizeof(float)));
         glx.ShaderTool().buildProgram();
         uniformModel = glGetUniformLocation(glx.ShaderTool().getProgram(),"uniformModel");
         iTime = glGetUniformLocation(glx.ShaderTool().getProgram(),"iTime");
@@ -79,7 +79,7 @@ int main() {
         //? handling Rest of the Drawing functions
         glClear(GL_COLOR_BUFFER_BIT);
         glDrawArrays( GL_TRIANGLES,0,VERTEX_TO_DRAW_COUNT);
-        glClearColor(1.0, 1.0, 1.0, 1.0);
+        glClearColor(0.0, 0.0, 0.0, 0.0);
         glBindVertexArray(0);
         glUseProgram(0);
     });
