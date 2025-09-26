@@ -19,7 +19,7 @@ constexpr glx_type::uint VERTEX_TO_DRAW_COUNT = 6;
 constexpr float toRadians = std::numbers::pi/180;
 
 int main() {
-    const float cubeSize=0.9;
+    const float cubeSize=1.0;
     GLX glx;
     glx.setVersionMajor(4);
     glx.setVersionMinor(6);
