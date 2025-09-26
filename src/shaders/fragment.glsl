@@ -10,7 +10,8 @@ uniform sampler2D materialMask;
 
 void main(){
     vec3 baseColor = texture(material,textureCoord).rgb;
-    float dx =   sin(PI*length(textureCoord)*time);
-    pixelColor = dx*vec4(baseColor,1.0);
+    float dx =   sin((PI*length(textureCoord)))*time;
+    float effect = cos(dx)  * length(baseColor);
+    pixelColor = effect*vec4(baseColor,1.0);
 }
 
