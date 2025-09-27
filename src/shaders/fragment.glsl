@@ -8,9 +8,9 @@ uniform sampler2D material;
 uniform sampler2D materialMask;
 
 void main(){
-    vec3 baseColor = texture(material,textureCoord).rgb;
+    vec3 baseTexture = texture(material,textureCoord).rgb;
     float dx =   length(vec2(cos(PI*length(textureCoord)),sin(PI*length(textureCoord))))*sqrt(time*0.05);
     float effect = smoothstep(0.09,0.9,dx);
-    pixelColor = effect*vec4(baseColor,1.0);
+    pixelColor = effect*vec4(baseTexture,1.0);
 }
 
