@@ -10,8 +10,8 @@ uniform sampler2D materialMask;
 void main(){
     vec3 baseTexture = texture(material,textureCoord).rgb;
     float mask = texture(materialMask,textureCoord).r;
-   // float dx =   length(vec2(cos(PI*length(textureCoord)),sin(PI*length(textureCoord))))*sqrt(time*0.05);
-    //float effect = smoothstep(0.09,0.9,dx) - smoothstep(0.9,0.09,dx);
-    fragColor =  vec4(mask * baseTexture,1.0);
+    float dx =   length(vec2(cos(PI*length(textureCoord)),sin(PI*length(textureCoord))))*sin(time*0.05);
+    float effect = smoothstep(mask + 0.1,0.9,dx) - smoothstep(0.9,mask - 0.1,dx);
+    fragColor =  vec4(effect * baseTexture,1.0);
 }
 
