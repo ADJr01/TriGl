@@ -3,7 +3,7 @@
 in float time;
 in vec4 positionData;
 in vec2 textureCoord;
-out vec4 pixelColor;
+out vec4 fragColor;
 uniform sampler2D material;
 uniform sampler2D materialMask;
 
@@ -11,6 +11,6 @@ void main(){
     vec3 baseTexture = texture(material,textureCoord).rgb;
     float dx =   length(vec2(cos(PI*length(textureCoord)),sin(PI*length(textureCoord))))*sqrt(time*0.05);
     float effect = smoothstep(0.09,0.9,dx) - smoothstep(0.9,0.09,dx);
-    pixelColor = effect*vec4(baseTexture,1.0);
+    fragColor = effect*vec4(baseTexture,1.0);
 }
 
