@@ -72,7 +72,7 @@ int main() {
         //? handling Uniform
         auto Identity = glm::mat4(1.0); //  Identity Matrix
         Identity = glm::translate(Identity,glm::vec3(trans.getMoveOffset(),0.0f,0.0f));
-        //Identity = glm::rotate(Identity,toRadians*trans.getNextRotation(),glm::vec3(0.0f,0.0f,1.0f));
+        Identity = glm::rotate(Identity,toRadians*trans.getNextRotation(),glm::vec3(0.0f,0.0f,1.0f));
         //Identity = glm::scale(Identity,glm::vec3(1.0f*ts,1.0f*tc,1.0f));
         glUniformMatrix4fv(uniformModel,1,GL_FALSE,glm::value_ptr(Identity));
         glUniform1f(iTime,static_cast<float>(time));
