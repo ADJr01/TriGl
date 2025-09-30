@@ -9,15 +9,15 @@
 #include "util/Texture.h"
 const std::string vs = R"(D:/Projects/Personal/CG/TriGL/src/shaders/vertex.glsl)";
 const std::string fs = R"(D:/Projects/Personal/CG/TriGL/src/shaders/fragment.glsl)";
-const std::string texturePath = R"(D:/Projects/Personal/CG/TriGL/src/asset/brick.jpg)";
-const std::string maskTexturePath = R"(D:/Projects/Personal/CG/TriGL/src/asset/brick_mask.png)";
+const std::string texturePath = R"(D:/Projects/Personal/CG/TriGL/src/asset/jerry.png)";
+const std::string maskTexturePath = R"(D:/Projects/Personal/CG/TriGL/src/asset/jerry_mask.png)";
 unsigned int program;
 int uniformModel,iTime;
 Texture* texture = nullptr;
 Texture* maskTexture = nullptr;
 constexpr glx_type::uint VERTEX_TO_DRAW_COUNT = 6;
 constexpr float toRadians = std::numbers::pi/180;
-constexpr float CUBE_SIZE = 0.3;
+constexpr float CUBE_SIZE = 0.8;
 int main() {
     GLX glx;
     glx.setVersionMajor(4);
