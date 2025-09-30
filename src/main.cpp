@@ -17,26 +17,24 @@ Texture* texture = nullptr;
 Texture* maskTexture = nullptr;
 constexpr glx_type::uint VERTEX_TO_DRAW_COUNT = 6;
 constexpr float toRadians = std::numbers::pi/180;
-
+constexpr float CUBE_SIZE = 0.3;
 int main() {
-    const float cubeSize=0.25;
     GLX glx;
     glx.setVersionMajor(4);
     glx.setVersionMinor(6);
     GLVA* glva = nullptr;
     Transformer trans;
     glx.setWindowTitle("TriCube");
-    glx.buildMode(BUILD_MODE::DEV);
     //creating vertices
     std::array<float, 30> vertexAttribs = {
         //   POSITIONS        COLORS (R, G, B, A)
-        -cubeSize, -cubeSize, 0.0f,   0.0f, 0.0f, // bottom-left
-         cubeSize, -cubeSize, 0.0f,   1.0f, 0.0f, // bottom-right
-        -cubeSize,  cubeSize, 0.0f,   0.0,  1.0, // top-left
+        -CUBE_SIZE, -CUBE_SIZE, 0.0f,   0.0f, 0.0f, // bottom-left
+         CUBE_SIZE, -CUBE_SIZE, 0.0f,   1.0f, 0.0f, // bottom-right
+        -CUBE_SIZE,  CUBE_SIZE, 0.0f,   0.0,  1.0, // top-left
 
-         cubeSize, -cubeSize, 0.0f,   1.0f, 0.0f, // bottom-right
-         cubeSize,  cubeSize, 0.0f,   1.0,  1.0, // top-right
-        -cubeSize,  cubeSize, 0.0f,   0.0,  1.0,  // top-left
+         CUBE_SIZE, -CUBE_SIZE, 0.0f,   1.0f, 0.0f, // bottom-right
+         CUBE_SIZE,  CUBE_SIZE, 0.0f,   1.0,  1.0, // top-right
+        -CUBE_SIZE,  CUBE_SIZE, 0.0f,   0.0,  1.0,  // top-left
     };
 
     glx.ShaderTool().setFragmentShaderPath(fs);
@@ -84,7 +82,7 @@ int main() {
         glUseProgram(0);
     });
     //
-
+        glx.buildMode(BUILD_MODE::DEV);
         glx.launch();
         glx.ShaderTool().deleteProgram();
         delete glva;
