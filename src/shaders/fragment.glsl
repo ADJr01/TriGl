@@ -10,6 +10,6 @@ uniform sampler2D materialMask;
 void main(){
     vec3 baseTexture = texture(material,textureCoord).rgb;
     float mask = texture(materialMask,textureCoord).r;
-    fragColor =  vec4(mask* baseTexture,1.0);
+    fragColor =  vec4( baseTexture,mask);
 }
 
