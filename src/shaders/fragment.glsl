@@ -10,8 +10,8 @@ uniform sampler2D materialMask;
 void main(){
     vec3 baseTexture = texture(material,textureCoord).rgb;
     float mask = texture(materialMask,textureCoord).r;
-    float tX = baseTexture.r*sin(time);
-    float tY = baseTexture.g* cos(time);
+    float tX = baseTexture.r*sin(time)*log(PI);
+    float tY = baseTexture.g* cos(time)*log(PI);
     float len = length(vec2(tX,tY));
     fragColor =  vec4(len*baseTexture,mask);
 }
