@@ -17,7 +17,7 @@ Texture* texture = nullptr;
 Texture* maskTexture = nullptr;
 constexpr glx_type::uint VERTEX_TO_DRAW_COUNT = 6;
 constexpr float toRadians = std::numbers::pi/180;
-constexpr float CUBE_SIZE = 0.8;
+constexpr float CUBE_SIZE = 0.3;
 int main() {
     GLX glx;
     glx.setVersionMajor(4);
@@ -69,7 +69,7 @@ int main() {
         maskTexture->bind(1);
         //? handling Uniform
         auto Identity = glm::mat4(1.0); //  Identity Matrix
-        //Identity = glm::translate(Identity,glm::vec3(trans.getMoveOffset(),0.0f,0.0f));
+        Identity = glm::translate(Identity,glm::vec3(trans.getMoveOffset(),0.0f,0.0f));
         //Identity = glm::rotate(Identity,toRadians*trans.getNextRotation(),glm::vec3(0.0f,0.0f,1.0f));
         //Identity = glm::scale(Identity,glm::vec3(1.0f*ts,1.0f*tc,1.0f));
         glUniformMatrix4fv(uniformModel,1,GL_FALSE,glm::value_ptr(Identity));
