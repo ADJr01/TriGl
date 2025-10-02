@@ -1,5 +1,5 @@
 #version 460 core
-#define PI 3.14159265359
+#define PI 3.141592653589793
 in float time;
 in vec4 positionData;
 in vec2 textureCoord;
