@@ -13,11 +13,11 @@ float axisSmooth(float axis,float len){
     return a-b;
 }
 void main(){
-    vec3 baseTexture = texture(material,textureCoord).rgb;
-    float mask = texture(materialMask,textureCoord).r;
-    float tX = baseTexture.r*sin(time)*log(PI);
-    float tY = baseTexture.g* cos(time)*log(PI);
-    float len = axisSmooth(tX,length(vec2(tX,tY)));
-    fragColor =  vec4(len*baseTexture,mask);
+    //vec3 baseTexture = texture(material,textureCoord).rgb;
+    //float mask = texture(materialMask,textureCoord).r;
+    //float tX = baseTexture.r*sin(time)*log(PI);
+    //float tY = baseTexture.g* cos(time)*log(PI);
+    //float len = axisSmooth(tX,length(vec2(tX,tY)));
+    fragColor =vec4(1.0*log(time));  //vec4(len*baseTexture,mask);
 }
 

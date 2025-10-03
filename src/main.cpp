@@ -45,7 +45,7 @@ int main() {
         maskTexture = new Texture(maskTexturePath.c_str());
         glva = new GLVA(2);
         glva->bindVertexInfo_F(vertexAttribs,3,5,(void*)0);
-        glva->bindVertexInfo_F(vertexAttribs,2,5,(void*)(3*sizeof(float)));
+        glva->bindVertexInfo_F(vertexAttribs,2,2,(void*)(3*sizeof(float)));
         glx.ShaderTool().buildProgram();
         uniformModel = glGetUniformLocation(glx.ShaderTool().getProgram(),"uniformModel");
         iTime = glGetUniformLocation(glx.ShaderTool().getProgram(),"iTime");
