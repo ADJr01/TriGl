@@ -16,8 +16,8 @@ float axisSmooth(float axis,float len){
 void main(){
     vec3 baseTexture = texture(material,textureCoord).rgb;
     float mask = texture(materialMask,textureCoord).g;
-    float tX = baseTexture.r*sin(time)*log(PI);
-    float tY = baseTexture.g* cos(time)*log(PI);
+    float tX = sqrt(baseTexture.r*sin(time));
+    float tY = sqrt(baseTexture.g* cos(time));
     float len = axisSmooth(tX,length(vec2(tX,tY)));
     fragColor = vec4(len * baseTexture,1.0);
 }
