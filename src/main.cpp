@@ -7,6 +7,7 @@
 #include "Helper/GLVA.h"
 #include "util/Transformer.h"
 #include "util/Texture.h"
+
 const std::string vs = R"(D:/Projects/Personal/CG/TriGL/src/shaders/vertex.glsl)";
 const std::string fs = R"(D:/Projects/Personal/CG/TriGL/src/shaders/fragment.glsl)";
 const std::string texturePath = R"(D:/Projects/Personal/CG/TriGL/src/asset/jerry.png)";
@@ -26,15 +27,23 @@ int main() {
     Transformer trans;
     glx.setWindowTitle("TriCube");
     //creating vertices
-    std::array<float, 30> vertexAttribs = {
-        //   POSITIONS        COLORS (R, G, B, A)
-        -CUBE_SIZE, -CUBE_SIZE, 0.0f,   0.0f, 0.0f, // bottom-left
-         CUBE_SIZE, -CUBE_SIZE, 0.0f,   1.0f, 0.0f, // bottom-right
-        -CUBE_SIZE,  CUBE_SIZE, 0.0f,   0.0,  1.0, // top-left
-
-         CUBE_SIZE, -CUBE_SIZE, 0.0f,   1.0f, 0.0f, // bottom-right
-         CUBE_SIZE,  CUBE_SIZE, 0.0f,   1.0,  1.0, // top-right
-        -CUBE_SIZE,  CUBE_SIZE, 0.0f,   0.0,  1.0,  // top-left
+    // std::array<float, 30> vertexAttribs = {
+    //     //   POSITIONS                   // text coords
+    //     -CUBE_SIZE, -CUBE_SIZE, 0.0f,   0.0f, 0.0f, // bottom-left
+    //      CUBE_SIZE, -CUBE_SIZE, 0.0f,   1.0f, 0.0f, // bottom-right
+    //     -CUBE_SIZE,  CUBE_SIZE, 0.0f,   0.0,  1.0, // top-left
+    //
+    //      CUBE_SIZE, -CUBE_SIZE, 0.0f,   1.0f, 0.0f, // bottom-right
+    //      CUBE_SIZE,  CUBE_SIZE, 0.0f,   1.0,  1.0, // top-right
+    //     -CUBE_SIZE,  CUBE_SIZE, 0.0f,   0.0,  1.0,  // top-left
+    // };
+    std::array<float,30> vertexAttribs = {
+        0.5, 0.5, 0.0,	 0.5, 0.5,
+        0.9, 0.5, 0.0	, 0.9, 0.5,
+        0.892314, 0.578036, 0.0,	 0.892314, 0.578036,
+        0.869552, 0.653073, 0.0,	 0.869552, 0.653073,
+        0.832588, 0.722228, 0.0,	 0.832588, 0.722228,
+        0.782843, 0.782843, 0.0,	 0.782843, 0.782843,
     };
 
     glx.ShaderTool().setFragmentShaderPath(fs);
