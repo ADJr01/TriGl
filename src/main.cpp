@@ -16,7 +16,7 @@ unsigned int program;
 int uniformModel,iTime;
 Texture* texture = nullptr;
 Texture* maskTexture = nullptr;
-constexpr glx_type::uint VERTEX_TO_DRAW_COUNT = 8;
+constexpr glx_type::uint VERTEX_TO_DRAW_COUNT = 32;
 constexpr float toRadians = std::numbers::pi/180;
 constexpr float CUBE_SIZE = 0.3;
 int main() {
@@ -37,18 +37,22 @@ int main() {
     //      CUBE_SIZE,  CUBE_SIZE, 0.0f,   1.0,  1.0, // top-right
     //     -CUBE_SIZE,  CUBE_SIZE, 0.0f,   0.0,  1.0,  // top-left
     // };
-    std::array<float,35> vertexAttribs = {
-        // Center
-        0.5f, 0.5f, 0.0f,  0.5f, 0.5f,
-        // Ring
-        0.9f, 0.5f, 0.0f,  0.9f, 0.5f,
-        0.892314f, 0.578036f, 0.0f,  0.892314f, 0.578036f,
-        0.869552f, 0.653073f, 0.0f,  0.869552f, 0.653073f,
-        0.832588f, 0.722228f, 0.0f,  0.832588f, 0.722228f,
-        0.782843f, 0.782843f, 0.0f,  0.782843f, 0.782843f,
-        // Closing vertex (same as first ring vertex)
-        0.9f, 0.5f, 0.0f,  0.9f, 0.5f,
-    };
+    std::vector<float> vertexAttribs;
+    const int numSegments = 32; // or 64 for smoother
+    // Center
+    vertexAttribs.insert(vertexAttribs.end(), {0.5f, 0.5f, 0.0f, 0.5f, 0.5f});
+
+    // Ring vertices
+    for(int i = 0; i <= numSegments; i++) {
+        float angle = 2.0f * M_PI * i / numSegments;
+        float x = 0.5f + 0.4f * std::cos(angle);
+        float y = 0.5f + 0.4f * std::sin(angle);
+        vertexAttribs.insert(vertexAttribs.end(), {x, y, 0.0f, x, y});
+    }
+
+
+
+
 
     glx.ShaderTool().setFragmentShaderPath(fs);
     glx.ShaderTool().setVertexShaderPath(vs);
@@ -58,7 +62,7 @@ int main() {
 
         maskTexture = new Texture(maskTexturePath.c_str());
         glva = new GLVA(2);
-        glva->bindVertexInfo_F(vertexAttribs,3,5,(void*)0);
+        glva->bindVertexInfo_F(vertexAttribs.data(),3,5,(void*)0);
         glva->bindVertexInfo_F(vertexAttribs,2,5,(void*)(3*sizeof(float))); // per vertex data always should be 5 in this scenario as each vertex defines the information related to that sapecefic vertex point
         glx.ShaderTool().buildProgram();
         uniformModel = glGetUniformLocation(glx.ShaderTool().getProgram(),"uniformModel");
