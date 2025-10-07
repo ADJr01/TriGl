@@ -16,7 +16,7 @@ unsigned int program;
 int uniformModel,iTime;
 Texture* texture = nullptr;
 Texture* maskTexture = nullptr;
-constexpr glx_type::uint VERTEX_TO_DRAW_COUNT = 7;
+constexpr glx_type::uint VERTEX_TO_DRAW_COUNT = 8;
 constexpr float toRadians = std::numbers::pi/180;
 constexpr float CUBE_SIZE = 0.3;
 int main() {
@@ -55,6 +55,7 @@ int main() {
 
     glx.addPostLaunchProcedure([&]() {
         texture = new Texture(texturePath.c_str());
+
         maskTexture = new Texture(maskTexturePath.c_str());
         glva = new GLVA(2);
         glva->bindVertexInfo_F(vertexAttribs,3,5,(void*)0);
@@ -89,8 +90,8 @@ int main() {
         glUniform1f(iTime,static_cast<float>(time));
         //? handling Rest of the Drawing functions
         glClear(GL_COLOR_BUFFER_BIT);
-        glDrawArrays( GL_TRIANGLES,0,VERTEX_TO_DRAW_COUNT);
-        glClearColor(1.0, 1.0, 1.0, 1.0);
+        glDrawArrays( GL_TRIANGLE_FAN,0,VERTEX_TO_DRAW_COUNT);
+        glClearColor(0.0, 0.0, 0.0, 0.0);
         glBindVertexArray(0);
         glUseProgram(0);
     });
