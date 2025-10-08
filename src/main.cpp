@@ -7,7 +7,17 @@
 #include "Helper/GLVA.h"
 #include "util/Transformer.h"
 #include "util/Texture.h"
+template <typename T, size_t N>
+std::array<T, N> stealVectorBuffer(std::vector<T>& vec) {
+    if (vec.size() != N)
+        throw std::runtime_error("Size mismatch");
 
+    std::array<T, N> arr;
+    std::memcpy(arr.data(), vec.data(), N * sizeof(T));
+    vec.clear();
+    vec.shrink_to_fit();
+    return arr;
+}
 const std::string vs = R"(D:/Projects/Personal/CG/TriGL/src/shaders/vertex.glsl)";
 const std::string fs = R"(D:/Projects/Personal/CG/TriGL/src/shaders/fragment.glsl)";
 const std::string texturePath = R"(D:/Projects/Personal/CG/TriGL/src/asset/jerry.png)";
@@ -37,19 +47,6 @@ int main() {
     //      CUBE_SIZE,  CUBE_SIZE, 0.0f,   1.0,  1.0, // top-right
     //     -CUBE_SIZE,  CUBE_SIZE, 0.0f,   0.0,  1.0,  // top-left
     // };
-    std::vector<float> vertexAttribs;
-    const int numSegments = 32; // or 64 for smoother
-    // Center
-    vertexAttribs.insert(vertexAttribs.end(), {0.5f, 0.5f, 0.0f, 0.5f, 0.5f});
-
-    // Ring vertices
-    for(int i = 0; i <= numSegments; i++) {
-        float angle = 2.0f * M_PI * i / numSegments;
-        float x = 0.5f + 0.4f * std::cos(angle);
-        float y = 0.5f + 0.4f * std::sin(angle);
-        vertexAttribs.insert(vertexAttribs.end(), {x, y, 0.0f, x, y});
-    }
-
 
 
 
