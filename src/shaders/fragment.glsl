@@ -14,7 +14,7 @@ float axisSmooth(float axis,float len){
     return a-b;
 }
 void main(){
-    //vec3 baseTexture = texture(material,textureCoord).rgb;
+    vec3 baseTexture = texture(material,textureCoord).rgb;
     float mask = texture(materialMask,textureCoord).g;
     float tX = baseTexture.r;
     float tY = baseTexture.g;
