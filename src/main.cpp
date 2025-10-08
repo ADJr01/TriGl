@@ -59,7 +59,7 @@ int main() {
 
         maskTexture = new Texture(maskTexturePath.c_str());
         glva = new GLVA(2);
-        glva->bindVertexInfo_F(vertexAttribs.data(),3,5,(void*)0);
+        glva->bindVertexInfo_F(vertexAttribs,3,5,(void*)0);
         glva->bindVertexInfo_F(vertexAttribs,2,5,(void*)(3*sizeof(float))); // per vertex data always should be 5 in this scenario as each vertex defines the information related to that sapecefic vertex point
         glx.ShaderTool().buildProgram();
         uniformModel = glGetUniformLocation(glx.ShaderTool().getProgram(),"uniformModel");
