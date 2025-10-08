@@ -37,16 +37,16 @@ int main() {
     Transformer trans;
     glx.setWindowTitle("Tri Cube");
     //creating vertices
-    // std::array<float, 30> vertexAttribs_old = {
-    //     //   POSITIONS                   // text coords
-    //     -CUBE_SIZE, -CUBE_SIZE, 0.0f,   0.0f, 0.0f, // bottom-left
-    //      CUBE_SIZE, -CUBE_SIZE, 0.0f,   1.0f, 0.0f, // bottom-right
-    //     -CUBE_SIZE,  CUBE_SIZE, 0.0f,   0.0,  1.0, // top-left
-    //
-    //      CUBE_SIZE, -CUBE_SIZE, 0.0f,   1.0f, 0.0f, // bottom-right
-    //      CUBE_SIZE,  CUBE_SIZE, 0.0f,   1.0,  1.0, // top-right
-    //     -CUBE_SIZE,  CUBE_SIZE, 0.0f,   0.0,  1.0,  // top-left
-    // };
+    std::array<float, 30> vertexAttribs = {
+        //   POSITIONS                   // text coords
+        -CUBE_SIZE, -CUBE_SIZE, 0.0f,   0.0f, 0.0f, // bottom-left
+         CUBE_SIZE, -CUBE_SIZE, 0.0f,   1.0f, 0.0f, // bottom-right
+        -CUBE_SIZE,  CUBE_SIZE, 0.0f,   0.0,  1.0, // top-left
+
+         CUBE_SIZE, -CUBE_SIZE, 0.0f,   1.0f, 0.0f, // bottom-right
+         CUBE_SIZE,  CUBE_SIZE, 0.0f,   1.0,  1.0, // top-right
+        -CUBE_SIZE,  CUBE_SIZE, 0.0f,   0.0,  1.0,  // top-left
+    };
 
 
 
