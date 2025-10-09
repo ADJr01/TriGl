@@ -16,6 +16,6 @@ float axisSmooth(float axis,float len){
 void main(){
     vec3 baseTexture = texture(material,textureCoord).rgb;
     float mask = texture(materialMask,textureCoord).g;
-    fragColor =vec4(1.0);
+    fragColor =vec4(baseTexture);
 }
 
