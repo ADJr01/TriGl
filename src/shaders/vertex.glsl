@@ -13,7 +13,7 @@ void main(){
     float z = vertPos.z;
     time=iTime;
     vec4 finalPos = uniformModel * vec4(x,y,z,1.0);
-    positionData = vec4(vertPos,1.0);//finalPos;
+    positionData = finalPos;
     textureCoord= textureCoordinates;//(finalPos.xy+vec2(1.0)) * vec2(0.5,-0.5);
     gl_Position = vec4(finalPos,1.0);//finalPos;
 }
