@@ -7,21 +7,10 @@
 #include "Helper/GLVA.h"
 #include "util/Transformer.h"
 #include "util/Texture.h"
-template <typename T, size_t N>
-std::array<T, N> stealVectorBuffer(std::vector<T>& vec) {
-    if (vec.size() != N)
-        throw std::runtime_error("Size mismatch");
-
-    std::array<T, N> arr;
-    std::memcpy(arr.data(), vec.data(), N * sizeof(T));
-    vec.clear();
-    vec.shrink_to_fit();
-    return arr;
-}
 const std::string vs = R"(D:/Projects/Personal/CG/TriGL/src/shaders/vertex.glsl)";
 const std::string fs = R"(D:/Projects/Personal/CG/TriGL/src/shaders/fragment.glsl)";
-const std::string texturePath = R"(D:/Projects/Personal/CG/TriGL/src/asset/jerry.png)";
-const std::string maskTexturePath = R"(D:/Projects/Personal/CG/TriGL/src/asset/jerry_mask.png)";
+const std::string texturePath = R"(D:/Projects/Personal/CG/TriGL/src/asset/brick.jpg)";
+const std::string maskTexturePath = R"(D:/Projects/Personal/CG/TriGL/src/asset/brick_mask.png)";
 unsigned int program;
 int uniformModel,iTime;
 Texture* texture = nullptr;
@@ -47,9 +36,6 @@ int main() {
          CUBE_SIZE,  CUBE_SIZE, 0.0f,   1.0,  1.0, // top-right
         -CUBE_SIZE,  CUBE_SIZE, 0.0f,   0.0,  1.0,  // top-left
     };
-
-
-
 
     glx.ShaderTool().setFragmentShaderPath(fs);
     glx.ShaderTool().setVertexShaderPath(vs);
